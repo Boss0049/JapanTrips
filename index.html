@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>แผนเที่ยว 7 วัน (8–15 เม.ย. 2026) — Responsive + ค่าใช้จ่าย</title>
+    <style>
+        :root {
+            --bg: #0b1020;
+            --card: #111834;
+            --muted: #a9b4d0;
+            --text: #eaf0ff;
+            --accent: #6ee7ff;
+            --accent-2: #9bffcb;
+            --table: #0f1530;
+            --chip: #1b2447;
+            --ok: #23d18b;
+            --warn: #ffd166;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            background: linear-gradient(180deg, #0b1020, #0a0f1e 60%, #070b17);
+            color: var(--text);
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, TH Sarabun New, "Sarabun", sans-serif;
+            line-height: 1.55;
+            padding-bottom: 80px;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: saturate(140%) blur(8px);
+            background: #0b1020cc;
+            border-bottom: 1px solid #223;
+        }
+
+        .wrap {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+
+        h1 {
+            margin: 8px 0 4px;
+            font-weight: 800;
+            letter-spacing: .2px
+        }
+
+        .sub {
+            color: var(--muted);
+            font-size: .95rem
+        }
+
+        /* Controls */
+        .controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .control {
+            background: var(--card);
+            border: 1px solid #223;
+            border-radius: 12px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .control label {
+            color: var(--muted);
+            font-size: .9rem
+        }
+
+        .control input[type="number"] {
+            width: 110px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            border: 1px solid #334;
+            background: #0b122a;
+            color: var(--text);
+        }
+
+        .chip {
+            background: var(--chip);
+            border: 1px solid #2a3568;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: .85rem;
+            color: var(--muted)
+        }
+
+        /* Section Day */
+        section.day {
+            border: 1px solid #223;
+            background: var(--card);
+            margin: 16px auto;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, .25);
+        }
+
+        .day-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 14px 16px;
+            background: linear-gradient(90deg, #121b3a, #0e1631);
+            border-bottom: 1px solid #223;
+        }
+
+        .day-head h2 {
+            margin: 0;
+            font-size: 1.1rem
+        }
+
+        .meta {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap
+        }
+
+        .meta .chip {
+            border-color: #2b3a7a
+        }
+
+        /* Table */
+        .tbl {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--table)
+        }
+
+        .tbl th,
+        .tbl td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #1c2344;
+            vertical-align: top
+        }
+
+        .tbl th {
+            position: sticky;
+            top: 64px;
+            z-index: 5;
+            background: #0f1530f2;
+            text-align: left;
+            font-weight: 700
+        }
+
+        .tbl tr:hover td {
+            background: #0f1a3a80
+        }
+
+        .fee {
+            white-space: nowrap
+        }
+
+        .note {
+            color: var(--muted);
+            font-size: .9rem
+        }
+
+        .free {
+            color: var(--ok);
+            font-weight: 600
+        }
+
+        .opt {
+            color: var(--warn);
+            font-weight: 600
+        }
+
+        /* Summary card */
+        .summary {
+            position: sticky;
+            bottom: 0;
+            z-index: 50;
+            background: #0b1020f2;
+            border-top: 1px solid #223;
+        }
+
+        .summary .wrap {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .sum-card {
+            background: var(--card);
+            border: 1px solid #223;
+            border-radius: 14px;
+            padding: 12px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .sum-card b {
+            font-size: 1.1rem
+        }
+
+        .legend {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .legend .chip {
+            display: flex;
+            gap: 6px;
+            align-items: center
+        }
+
+        .square {
+            width: 10px;
+            height: 10px;
+            border-radius: 2px;
+            display: inline-block
+        }
+
+        .sq-free {
+            background: var(--ok)
+        }
+
+        .sq-paid {
+            background: var(--accent)
+        }
+
+        .sq-opt {
+            background: var(--warn)
+        }
+
+        /* Responsive */
+        @media (max-width:900px) {
+            .controls {
+                grid-template-columns: 1fr
+            }
+
+            .summary .wrap {
+                grid-template-columns: 1fr
+            }
+
+            .tbl th:nth-child(1),
+            .tbl td:nth-child(1) {
+                width: 88px
+            }
+        }
+
+        @media (max-width:640px) {
+
+            .tbl th:nth-child(3),
+            .tbl td:nth-child(3) {
+                display: none;
+            }
+
+            /* ซ่อนคอลัมน์ "ค่าเข้า (บาท)" บนจอเล็ก */
+            .day-head {
+                flex-direction: column;
+                align-items: flex-start
+            }
+
+            .tbl th,
+            .tbl td {
+                padding: 10px 8px
+            }
+        }
+
+        /* Minimal button */
+        .btn {
+            appearance: none;
+            border: 1px solid #2a3568;
+            background: #101a3b;
+            color: #cfe6ff;
+            padding: 8px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            filter: brightness(1.1)
+        }
+
+        details {
+            background: #0d1531
+        }
+
+        details summary {
+            cursor: pointer;
+            padding: 10px 14px;
+            color: #cfe6ff
+        }
+
+        details[open] summary {
+            background: #0f193a
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="wrap">
+            <h1>แผนเที่ยว 7 วัน (8–15 เม.ย. 2026) — Tokyo → Fuji → Atami/Izu → Yokohama</h1>
+            <div class="sub">เวอร์ชัน Responsive + สรุปค่าใช้จ่าย (ปรับเรทแลกเปลี่ยนได้, รวมออปชัน)</div>
+
+            <div class="controls">
+                <div class="control">
+                    <label>เรทแลกเปลี่ยน (THB ต่อ 1 JPY):</label>
+                    <input id="rate" type="number" min="0.10" step="0.01" value="0.25" />
+                    <span class="chip">ปรับได้ตามเรทจริง</span>
+                </div>
+                <div class="control">
+                    <label><input id="includeOptional" type="checkbox" checked /> รวมค่าใช้จ่าย <b>ออปชัน</b> (เช่น Dock
+                        Tower, เส้นทางเสียเงิน)</label>
+                </div>
+                <div class="control">
+                    <button class="btn" id="expandAll">ขยายทุกวัน</button>
+                    <button class="btn" id="collapseAll">ย่อทุกวัน</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="wrap">
+
+        <!-- TEMPLATE FOR DAY TABLES
+       ใช้ data-fee-jpy สำหรับราคา (0 คือฟรี)
+       สำหรับออปชัน ให้ใส่ data-optional="1" และ data-fee-jpy เป็นราคาของออปชัน
+  -->
+
+        <!-- Day 1 -->
+        <section class="day">
+            <div class="day-head">
+                <h2>Day 1 — Tokyo → Kawaguchiko (Yamanashi)</h2>
+                <div class="meta">
+                    <span class="chip">ขับรถ ~2 ชม.</span>
+                    <span class="chip">ซากุระ Chureito พีค</span>
+                </div>
+            </div>
+            <details open>
+                <summary>ตารางกิจกรรม</summary>
+                <table class="tbl">
+                    <thead>
+                        <tr>
+                            <th>เวลา</th>
+                            <th>สถานที่</th>
+                            <th>ค่าเข้า (บาท)</th>
+                            <th>เวลาเปิด–ปิด</th>
+                            <th>หมายเหตุ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-fee-jpy="0">
+                            <td>10:00</td>
+                            <td>Chureito Pagoda</td>
+                            <td class="fee free">ฟรี</td>
+                            <td>8:30–17:00</td>
+                            <td>จุดชมฟูจิ + ซากุระ</td>
+                        </tr>
+                        <tr data-fee-jpy="0">
+                            <td>12:00</td>
+                            <td>Kawaguchiko / Oishi Park</td>
+                            <td class="fee free">ฟรี</td>
+                            <td>24 ชม.</td>
+                            <td>วิวฟูจิริมทะเลสาบ</td>
+                        </tr>
+                        <tr data-fee-jpy="0">
+                            <td>15:00</td>
+                            <td>Oshino Hakkai</td>
+                            <td class="fee free">ฟรี</td>
+                            <td>24 ชม.</td>
+                            <td>หมู่บ้านน้ำศักดิ์สิทธิ์</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </details>
+        </section>
+
+        <!-- Day 2 -->
+        <section class="day">
+            <div class="day-head">
+                <h2>Day 2 — Fuji Five Lakes</h2>
+                <div class="meta">
+                    <span class="chip">ขับวนรอบทะเลสาบ</span>
+                </div>
+            </div>
+            <details open>
+                <summary>ตารางกิจกรรม</summary>
+                <table class="tbl">
+                    <thead>
+                        <tr>
+                            <th>เวลา</th>
+                            <th>สถานที่</th>
+                            <th>ค่าเข้า (บาท)</th>
+                            <th>เวลาเปิด–ปิด</th>
+                            <th>หมายเหตุ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-fee-jpy="0">
+                            <td>08:30</td>
+                            <td>Lake Yamanakako</td>
+                            <td class="fee free">ฟรี</td>
+                            <td>24 ชม.</td>
+                            <td>ทะเลสาบใหญ่สุด</td>
+                        </tr>
+                        <tr data-fee-jpy="0">
+                            <td>10:30</td>
+                            <td>Lake Shojiko</td>
+                            <td class="fee free">ฟรี</td>
+                            <td>24 ชม.</td>
+                            <td>สงบ โรแมนติก</td>
+                        </tr>
+                        <tr data-fee-jpy="0">
+                            <td>12:00</td>
+                            <td>Lake Motosu</td>
+                            <td class="fee free">ฟรี</td>
+                            <td>24 ชม.</td>
+                            <td>วิวฟูจิบนแบงค์ 1,000 เยน</td>
+                        </tr>
+                        <tr data-fee-jpy="350">
+                            <td>14:00</td>
+                            <td>Narusawa Ice Cave</td>
+                            <td class="fee">—</td>
+                            <td>9:00–17:00</td>
+                            <td>ถ้ำน้ำแข็ง</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </details>
+        </section>
+
+        <!-- Day 3 -->
+        <section class="day">
+            <div class="day-head">
+                <h2>Day 3 — Fujinomiya → Atami</h2>
+                <div class="meta">
+                    <span class="chip">ไร่ชา + ฟูจิ</span>
+                    <span class="chip">เข้าพักออนเซ็น</span>
+                </div>
+            </div>
+            <details open>
+                <summary>ตารางกิจกรรม</summary>
+                <table class="tbl">
+                    <thead>
+                        <tr>
+                            <th>เวลา</th>
+                            <th>สถานที่</th>
+                            <th>ค่าเข้า (บาท)</th>
+                            <th>เวลาเปิด–ปิด</th>
+                            <th>หมายเหตุ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-fee-jpy="0">
+                            <td>09:30</td>
+                            <td>Obuchi Sasaba</td>
+                            <td class="fee free">ฟรี</td>
+                            <td>24 ชม.</td>
+                            <td>ไร่ชา + วิวฟูจิ</td>
+                        </tr>
+                        <tr data-fee-jpy="0">
+                            <td>11:00</td>
+                            <td>Fujisan Yumeno Ohashi</td>
+                            <td class="fee free">ฟรี</td>
+                            <td>24 ชม.</td>
+                            <td>สะพานวิวฟูจิ</td>
+                        </tr>
+                        <tr data-fee-jpy="0">
+                            <td>13:00</td>
+                            <td>Fujisan Sengen Shrine</td>
+                            <td class="fee free">ฟรี</td>
+                            <td>9:00–17:00</td>
+                            <td>ศาลเจ้าหลัก</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </details>
+        </section>
+
+        <!-- Day 4 -->
+        <section class="day">
+            <div class="day-head">
+                <h2>Day 4 — Atami (Art, Onsen & Fireworks)</h2>
+                <div class="meta">
+                    <span class="chip">พิพิธภัณฑ์ + ปราสาท</span>
+                    <span class="chip">ลุ้นพลุ Atami</span>
+                </div>
+            </div>
+            <details open>
+                <summary>ตารางกิจกรรม</summary>
+                <table class="tbl">
+                    <thead>
+                        <tr>
+                            <th>เวลา</th>
+                            <th>สถานที่</th>
+                            <th>ค่าเข้า (บาท)</th>
+                            <th>เวลาเปิด–ปิด</th>
+                            <th>หมายเหตุ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-fee-jpy="1000">
+                            <td>09:00</td>
+                            <td>Atami Castle</td>
+                            <td class="fee">—</td>
+                            <td>9:00–17:00</td>
+                            <td>ปราสาทริมทะเล</td>
+                        </tr>
+                        <tr data-fee-jpy="1600">
+                            <td>11:00</td>
+                            <td>MOA Museum of Art</td>
+                            <td class="fee">—</td>
+                            <td>9:30–16:30</td>
+                            <td>วิวอ่าวสวย</td>
+                        </tr>
+                        <tr data-fee-jpy="0">
+                            <td>14:00</td>
+                            <td>Kinomiya Shrine</td>
+                            <td class="fee free">ฟรี</td>
+                            <td>24 ชม.</td>
+                            <td>ต้นไม้พันปี</td>
+                        </tr>
+                        <tr data-fee-jpy="0">
+                            <td>15:30</td>
+                            <td>Atami Sun Beach</td>
+                            <td class="fee free">ฟรี</td>
+                            <td>24 ชม.</td>
+                            <td>น่าเดินช่วงเย็น</td>
+                        </tr>
+                        <tr data-fee-jpy="0">
+                            <td>20:20</td>
+                            <td>Atami Fireworks</td>
+                            <td class="fee free">ฟรี</td>
+                            <td>20:20–20:40</td>
+                            <td>ถ้าตรงวันจัด</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </details>
+        </section>
+
+        <!-- Day 5 -->
+        <section class="day">
+            <div class="day-head">
+                <h2>Day 5 — North Izu</h2>
+                <div class="meta">
+                    <span class="chip">Skywalk + Panorama Park</span>
+                </div>
+            </div>
+            <details open>
+                <summary>ตารางกิจกรรม</summary>
+                <table class="tbl">
+                    <thead>
+                        <tr>
+                            <th>เวลา</th>
+                            <th>สถานที่</th>
+                            <th>ค่าเข้า (บาท)</th>
+                            <th>เวลาเปิด–ปิด</th>
+                            <th>หมายเหตุ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-fee-jpy="1100">
+                            <td>09:00</td>
+                            <td>Mishima Skywalk</td>
+                            <td class="fee">—</td>
+                            <td>9:00–17:00</td>
+                            <td>สะพานแขวน</td>
+                        </tr>
+                        <tr data-fee-jpy="2000">
+                            <td>11:00</td>
+                            <td>Izu Panorama Park (Ropeway)</td>
+                            <td class="fee">—</td>
+                            <td>9:00–17:00</td>
+                            <td>Fuji Terrace + Footbath</td>
+                        </tr>
+                        <tr data-fee-jpy="0">
+                            <td>14:00</td>
+                            <td>Shuzenji Temple</td>
+                            <td class="fee free">ฟรี</td>
+                            <td>9:00–16:00</td>
+                            <td>วัดเก่าแก่</td>
+                        </tr>
+                        <tr data-fee-jpy="400">
+                            <td>15:30</td>
+                            <td>Rakuju-en</td>
+                            <td class="fee">—</td>
+                            <td>9:00–17:00</td>
+                            <td>สวนญี่ปุ่น</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </details>
+        </section>
+
+        <!-- Day 6 -->
+        <section class="day">
+            <div class="day-head">
+                <h2>Day 6 — South & West Izu</h2>
+                <div class="meta">
+                    <span class="chip">ชายฝั่ง + น้ำตก + เรือ</span>
+                    <span class="chip">พระอาทิตย์ตก Koganezaki</span>
+                </div>
+            </div>
+            <details open>
+                <summary>ตารางกิจกรรม</summary>
+                <table class="tbl">
+                    <thead>
+                        <tr>
+                            <th>เวลา</th>
+                            <th>สถานที่</th>
+                            <th>ค่าเข้า (บาท)</th>
+                            <th>เวลาเปิด–ปิด</th>
+                            <th>หมายเหตุ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-fee-jpy="0">
+                            <td>09:00</td>
+                            <td>Jogasaki Coast & Kadowaki Bridge</td>
+                            <td class="fee free">ฟรี</td>
+                            <td>24 ชม.</td>
+                            <td>หน้าผาทะเล</td>
+                        </tr>
+                        <tr data-fee-jpy="0">
+                            <td>10:30</td>
+                            <td>Shirahama Shrine</td>
+                            <td class="fee free">ฟรี</td>
+                            <td>24 ชม.</td>
+                            <td>ศาลเจ้าริมทะเล</td>
+                        </tr>
+                        <tr data-fee-jpy="300" data-optional="1">
+                            <td>12:00</td>
+                            <td>Kawazu Nanadaru Waterfalls <span class="opt">(+เส้นทางเสียเงิน)</span></td>
+                            <td class="fee">—</td>
+                            <td>24 ชม.</td>
+                            <td>บางทางเข้าเก็บค่าบำรุง</td>
+                        </tr>
+                        <tr data-fee-jpy="0">
+                            <td>14:00</td>
+                            <td>Kanazawa Waterfalls</td>
+                            <td class="fee free">ฟรี</td>
+                            <td>24 ชม.</td>
+                            <td>เงียบสงบ</td>
+                        </tr>
+                        <tr data-fee-jpy="1300">
+                            <td>15:30</td>
+                            <td>Dogashima Marine Boat</td>
+                            <td class="fee">—</td>
+                            <td>9:00–16:00</td>
+                            <td>ล่องเรือถ้ำทะเล</td>
+                        </tr>
+                        <tr data-fee-jpy="0">
+                            <td>17:00</td>
+                            <td>Koganezaki Park</td>
+                            <td class="fee free">ฟรี</td>
+                            <td>24 ชม.</td>
+                            <td>ชมพระอาทิตย์ตก</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </details>
+        </section>
+
+        <!-- Day 7 -->
+        <section class="day">
+            <div class="day-head">
+                <h2>Day 7 — Kanagawa & Yokohama → Tokyo</h2>
+                <div class="meta">
+                    <span class="chip">เมืองเก่า & เมืองท่า</span>
+                </div>
+            </div>
+            <details open>
+                <summary>ตารางกิจกรรม</summary>
+                <table class="tbl">
+                    <thead>
+                        <tr>
+                            <th>เวลา</th>
+                            <th>สถานที่</th>
+                            <th>ค่าเข้า (บาท)</th>
+                            <th>เวลาเปิด–ปิด</th>
+                            <th>หมายเหตุ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-fee-jpy="500">
+                            <td>09:00</td>
+                            <td>Odawara Castle</td>
+                            <td class="fee">—</td>
+                            <td>9:00–17:00</td>
+                            <td>ปราสาท</td>
+                        </tr>
+                        <tr data-fee-jpy="300">
+                            <td>11:00</td>
+                            <td>Kotoku-in (พระใหญ่)</td>
+                            <td class="fee">—</td>
+                            <td>8:00–17:00</td>
+                            <td>Kamakura</td>
+                        </tr>
+                        <tr data-fee-jpy="400">
+                            <td>12:00</td>
+                            <td>Hase-dera Temple</td>
+                            <td class="fee">—</td>
+                            <td>8:00–17:00</td>
+                            <td>Kamakura</td>
+                        </tr>
+                        <tr data-fee-jpy="500">
+                            <td>14:00</td>
+                            <td>Enoshima Iwaya Cave</td>
+                            <td class="fee">—</td>
+                            <td>9:00–17:00</td>
+                            <td>ถ้ำริมทะเล</td>
+                        </tr>
+                        <tr data-fee-jpy="1650">
+                            <td>17:00</td>
+                            <td>GUNDAM FACTORY Yokohama</td>
+                            <td class="fee">—</td>
+                            <td>10:00–21:00</td>
+                            <td>กันดั้มยักษ์</td>
+                        </tr>
+                        <tr data-fee-jpy="500" data-optional="1">
+                            <td>17:00</td>
+                            <td>Gundam Dock Tower <span class="opt">(ออปชัน)</span></td>
+                            <td class="fee">—</td>
+                            <td>10:00–21:00</td>
+                            <td>ขึ้นหอชมใกล้กันดั้ม</td>
+                        </tr>
+                        <tr data-fee-jpy="380">
+                            <td>18:30</td>
+                            <td>Shin-Yokohama Ramen Museum</td>
+                            <td class="fee">—</td>
+                            <td>11:00–21:00</td>
+                            <td>ไม่รวมค่าราเมง</td>
+                        </tr>
+                        <tr data-fee-jpy="0">
+                            <td>20:00</td>
+                            <td>Minato Mirai</td>
+                            <td class="fee free">ฟรี</td>
+                            <td>24 ชม.</td>
+                            <td>วิวเมือง</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </details>
+        </section>
+
+    </main>
+
+    <!-- Summary sticky -->
+    <div class="summary">
+        <div class="wrap">
+            <div class="sum-card">
+                <div>
+                    <div class="note">รวมค่าเข้า + ค่า Ropeway/เรือ (JPY)</div>
+                    <b id="sumJpy">–</b>
+                </div>
+                <div>
+                    <div class="note">ประมาณ (THB)</div>
+                    <b id="sumThb">–</b>
+                </div>
+            </div>
+            <div class="legend">
+                <span class="chip"><span class="square sq-free"></span> ฟรี</span>
+                <span class="chip"><span class="square" style="background:var(--accent)"></span> มีค่าใช้จ่าย</span>
+                <span class="chip"><span class="square sq-opt"></span> ออปชัน</span>
+            </div>
+            <div style="text-align:right">
+                <button class="btn" id="scrollTop">เลื่อนขึ้นด้านบน</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            const rateEl = document.getElementById('rate');
+            const optEl = document.getElementById('includeOptional');
+            const sumJpyEl = document.getElementById('sumJpy');
+            const sumThbEl = document.getElementById('sumThb');
+
+            function format(n, cur = 'JPY') {
+                return new Intl.NumberFormat('th-TH', { maximumFractionDigits: 0 }).format(n) + ' ' + cur;
+            }
+
+            function recalc() {
+                const rows = document.querySelectorAll('tbody tr');
+                let sumJpy = 0;
+                rows.forEach(tr => {
+                    const fee = Number(tr.getAttribute('data-fee-jpy') || 0);
+                    const optional = tr.getAttribute('data-optional') === '1';
+                    const feeCell = tr.querySelector('.fee');
+
+                    if (fee === 0) {
+                        if (feeCell) feeCell.textContent = 'ฟรี';
+                        return;
+                    }
+                    if (optional && !optEl.checked) {
+                        // ถ้าไม่รวมออปชัน แสดงเป็น "ออปชัน (ไม่รวม)"
+                        if (feeCell) { feeCell.innerHTML = '<span class="opt">ออปชัน (ไม่รวม)</span>'; }
+                        return;
+                    }
+                    sumJpy += fee;
+                    // อัปเดตคอลัมน์ค่าเข้า (บาท) ตามเรท
+                    const rate = Number(rateEl.value || 0.25);
+                    const thb = Math.round(fee * rate);
+                    if (feeCell) {
+                        feeCell.textContent = new Intl.NumberFormat('th-TH').format(thb) + ' บาท';
+                    }
+                });
+
+                // แสดงรวม
+                sumJpyEl.textContent = format(sumJpy, 'JPY');
+                const rate = Number(rateEl.value || 0.25);
+                const sumThb = Math.round(sumJpy * rate);
+                sumThbEl.textContent = new Intl.NumberFormat('th-TH').format(sumThb) + ' บาท';
+            }
+
+            // ปุ่ม expand/collapse
+            const expandAllBtn = document.getElementById('expandAll');
+            const collapseAllBtn = document.getElementById('collapseAll');
+            expandAllBtn.addEventListener('click', () => {
+                document.querySelectorAll('section.day details').forEach(d => d.open = true);
+            });
+            collapseAllBtn.addEventListener('click', () => {
+                document.querySelectorAll('section.day details').forEach(d => d.open = false);
+            });
+
+            // แสดงค่าเข้า (บาท) เริ่มต้นและเมื่อเปลี่ยนเรท/ออปชัน
+            rateEl.addEventListener('input', recalc);
+            optEl.addEventListener('change', recalc);
+            recalc();
+
+            // เลื่อนขึ้นบน
+            document.getElementById('scrollTop').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+            // ปรับสไตล์คอลัมน์ค่าเข้าเป็น "ฟรี" หลังคำนวณ
+            function paintFree() {
+                document.querySelectorAll('tbody tr').forEach(tr => {
+                    const fee = Number(tr.getAttribute('data-fee-jpy') || 0);
+                    const optional = tr.getAttribute('data-optional') === '1';
+                    const cell = tr.querySelector('.fee');
+                    if (!cell) return;
+                    if (fee === 0) {
+                        cell.classList.add('free');
+                    } else if (optional) {
+                        // แสดงสีเตือนเมื่อเป็นออปชัน
+                        cell.classList.remove('free');
+                    } else {
+                        cell.classList.remove('free');
+                    }
+                });
+            }
+            paintFree();
+        })();
+    </script>
+
+</body>
+
+</html>
