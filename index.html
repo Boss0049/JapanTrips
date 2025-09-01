@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>แผนเที่ยว 7 วัน (8–15 เม.ย. 2026) — Responsive + ค่าใช้จ่าย</title>
+    <title>แผนเที่ยว 7 วัน (8–15 เม.ย. 2026)</title>
     <style>
         :root {
             --bg: #0b1020;
@@ -58,7 +58,6 @@
             font-size: .95rem
         }
 
-        /* Controls */
         .controls {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
@@ -99,7 +98,6 @@
             color: var(--muted)
         }
 
-        /* Section Day */
         section.day {
             border: 1px solid #223;
             background: var(--card);
@@ -134,7 +132,6 @@
             border-color: #2b3a7a
         }
 
-        /* Table */
         .tbl {
             width: 100%;
             border-collapse: collapse;
@@ -277,7 +274,6 @@
             }
         }
 
-        /* Minimal button */
         .btn {
             appearance: none;
             border: 1px solid #2a3568;
@@ -323,7 +319,7 @@
                 </div>
                 <div class="control">
                     <label><input id="includeOptional" type="checkbox" checked /> รวมค่าใช้จ่าย <b>ออปชัน</b> (เช่น Dock
-                        Tower, เส้นทางเสียเงิน)</label>
+                        Tower, เส้นทางเสียเงิน, ลิฟต์ขึ้นเขา)</label>
                 </div>
                 <div class="control">
                     <button class="btn" id="expandAll">ขยายทุกวัน</button>
@@ -335,12 +331,7 @@
 
     <main class="wrap">
 
-        <!-- TEMPLATE FOR DAY TABLES
-       ใช้ data-fee-jpy สำหรับราคา (0 คือฟรี)
-       สำหรับออปชัน ให้ใส่ data-optional="1" และ data-fee-jpy เป็นราคาของออปชัน
-  -->
-
-        <!-- Day 1 -->
+        <!-- ====== Day 1 -->
         <section class="day">
             <div class="day-head">
                 <h2>Day 1 — Tokyo → Kawaguchiko (Yamanashi)</h2>
@@ -388,13 +379,11 @@
             </details>
         </section>
 
-        <!-- Day 2 -->
+        <!-- ====== Day 2 -->
         <section class="day">
             <div class="day-head">
                 <h2>Day 2 — Fuji Five Lakes</h2>
-                <div class="meta">
-                    <span class="chip">ขับวนรอบทะเลสาบ</span>
-                </div>
+                <div class="meta"><span class="chip">ขับวนรอบทะเลสาบ</span></div>
             </div>
             <details open>
                 <summary>ตารางกิจกรรม</summary>
@@ -442,7 +431,7 @@
             </details>
         </section>
 
-        <!-- Day 3 -->
+        <!-- ====== Day 3 -->
         <section class="day">
             <div class="day-head">
                 <h2>Day 3 — Fujinomiya → Atami</h2>
@@ -490,7 +479,7 @@
             </details>
         </section>
 
-        <!-- Day 4 -->
+        <!-- ====== Day 4 -->
         <section class="day">
             <div class="day-head">
                 <h2>Day 4 — Atami (Art, Onsen & Fireworks)</h2>
@@ -552,13 +541,11 @@
             </details>
         </section>
 
-        <!-- Day 5 -->
+        <!-- ====== Day 5 -->
         <section class="day">
             <div class="day-head">
                 <h2>Day 5 — North Izu</h2>
-                <div class="meta">
-                    <span class="chip">Skywalk + Panorama Park</span>
-                </div>
+                <div class="meta"><span class="chip">Skywalk + Panorama Park</span></div>
             </div>
             <details open>
                 <summary>ตารางกิจกรรม</summary>
@@ -606,7 +593,7 @@
             </details>
         </section>
 
-        <!-- Day 6 -->
+        <!-- ====== Day 6 -->
         <section class="day">
             <div class="day-head">
                 <h2>Day 6 — South & West Izu</h2>
@@ -675,13 +662,11 @@
             </details>
         </section>
 
-        <!-- Day 7 -->
+        <!-- ====== Day 7 -->
         <section class="day">
             <div class="day-head">
                 <h2>Day 7 — Kanagawa & Yokohama → Tokyo</h2>
-                <div class="meta">
-                    <span class="chip">เมืองเก่า & เมืองท่า</span>
-                </div>
+                <div class="meta"><span class="chip">เมืองเก่า & เมืองท่า</span></div>
             </div>
             <details open>
                 <summary>ตารางกิจกรรม</summary>
@@ -757,6 +742,91 @@
             </details>
         </section>
 
+        <!-- ====== Optional / Not-included -->
+        <section class="day">
+            <div class="day-head">
+                <h2>ตัวเลือกเพิ่มเติม — สถานที่ที่ยังไม่ได้รวมในแผน</h2>
+                <div class="meta"><span class="chip">ติ๊ก “รวมออปชัน” เพื่อบวกรวมยอด</span></div>
+            </div>
+            <details open>
+                <summary>รายการสถานที่ทางเลือก</summary>
+                <table class="tbl">
+                    <thead>
+                        <tr>
+                            <th>จังหวัด</th>
+                            <th>สถานที่</th>
+                            <th>ค่าเข้า (บาท)</th>
+                            <th>เวลาเปิด–ปิด</th>
+                            <th>หมายเหตุ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Yamanashi -->
+                        <tr data-fee-jpy="0" data-optional="1">
+                            <td>Yamanashi</td>
+                            <td>Saru-hashi Bridge (สะพานไม้โบราณซารุฮาชิ)</td>
+                            <td class="fee opt">ออปชัน (ฟรี/อาจมีค่าจอด)</td>
+                            <td>24 ชม.</td>
+                            <td>แลนด์มาร์กเก่าแก่</td>
+                        </tr>
+
+                        <!-- Kanagawa -->
+                        <tr data-fee-jpy="0" data-optional="1">
+                            <td>Kanagawa</td>
+                            <td>Sagamike</td>
+                            <td class="fee opt">ออปชัน (ฟรี)</td>
+                            <td>24 ชม.</td>
+                            <td>โซนธรรมชาติ/ทะเลสาบ (สะดวกถ้าพักฝั่ง Sagamihara)</td>
+                        </tr>
+                        <tr data-fee-jpy="0" data-optional="1">
+                            <td>Kanagawa</td>
+                            <td>Miyagase</td>
+                            <td class="fee opt">ออปชัน (ฟรี)</td>
+                            <td>24 ชม.</td>
+                            <td>ทะเลสาบ-เขื่อน บรรยากาศชิล</td>
+                        </tr>
+                        <tr data-fee-jpy="0" data-optional="1">
+                            <td>Kanagawa</td>
+                            <td>Oyama Temple (วัดโอยามะ)</td>
+                            <td class="fee opt">ออปชัน (ฟรี / เคเบิลคาร์มีค่าใช้จ่าย)</td>
+                            <td>24 ชม. (ศาลเจ้าหลัก)</td>
+                            <td>มีเคเบิลคาร์ขึ้นเขา (คิดเพิ่มเอง)</td>
+                        </tr>
+
+                        <!-- Shizuoka (Main) -->
+                        <tr data-fee-jpy="0" data-optional="1">
+                            <td>Shizuoka</td>
+                            <td>Miho no Matsubara</td>
+                            <td class="fee opt">ออปชัน (ฟรี)</td>
+                            <td>24 ชม.</td>
+                            <td>UNESCO วิวฟูจิริมหาดสน</td>
+                        </tr>
+                        <tr data-fee-jpy="1000" data-optional="1">
+                            <td>Shizuoka</td>
+                            <td>Mt. Omuro (เก้าอี้ลิฟต์ขึ้นยอด)</td>
+                            <td class="fee">—</td>
+                            <td>9:00–17:00</td>
+                            <td>ค่าลิฟต์ประมาณ ~1,000 เยน</td>
+                        </tr>
+                        <tr data-fee-jpy="0" data-optional="1">
+                            <td>Shizuoka</td>
+                            <td>Shiraito Falls</td>
+                            <td class="fee opt">ออปชัน (ฟรี / อาจมีค่าจอด)</td>
+                            <td>24 ชม.</td>
+                            <td>น้ำตกดัง ฟูจิโนะมิยะ</td>
+                        </tr>
+                        <tr data-fee-jpy="0" data-optional="1">
+                            <td>Shizuoka</td>
+                            <td>Lake Tanuki</td>
+                            <td class="fee opt">ออปชัน (ฟรี)</td>
+                            <td>24 ชม.</td>
+                            <td>ลานกางเต็นท์ วิวฟูจิ</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </details>
+        </section>
+
     </main>
 
     <!-- Summary sticky -->
@@ -764,7 +834,7 @@
         <div class="wrap">
             <div class="sum-card">
                 <div>
-                    <div class="note">รวมค่าเข้า + ค่า Ropeway/เรือ (JPY)</div>
+                    <div class="note">รวมค่าเข้า + Ropeway/เรือ (JPY)</div>
                     <b id="sumJpy">–</b>
                 </div>
                 <div>
@@ -790,10 +860,6 @@
             const sumJpyEl = document.getElementById('sumJpy');
             const sumThbEl = document.getElementById('sumThb');
 
-            function format(n, cur = 'JPY') {
-                return new Intl.NumberFormat('th-TH', { maximumFractionDigits: 0 }).format(n) + ' ' + cur;
-            }
-
             function recalc() {
                 const rows = document.querySelectorAll('tbody tr');
                 let sumJpy = 0;
@@ -802,17 +868,23 @@
                     const optional = tr.getAttribute('data-optional') === '1';
                     const feeCell = tr.querySelector('.fee');
 
-                    if (fee === 0) {
-                        if (feeCell) feeCell.textContent = 'ฟรี';
-                        return;
+                    if (feeCell) {
+                        // reset display
+                        if (fee === 0) {
+                            feeCell.textContent = 'ฟรี';
+                            feeCell.classList.add('free');
+                            return;
+                        } else {
+                            feeCell.classList.remove('free');
+                        }
                     }
+
                     if (optional && !optEl.checked) {
-                        // ถ้าไม่รวมออปชัน แสดงเป็น "ออปชัน (ไม่รวม)"
                         if (feeCell) { feeCell.innerHTML = '<span class="opt">ออปชัน (ไม่รวม)</span>'; }
                         return;
                     }
+
                     sumJpy += fee;
-                    // อัปเดตคอลัมน์ค่าเข้า (บาท) ตามเรท
                     const rate = Number(rateEl.value || 0.25);
                     const thb = Math.round(fee * rate);
                     if (feeCell) {
@@ -820,49 +892,29 @@
                     }
                 });
 
-                // แสดงรวม
-                sumJpyEl.textContent = format(sumJpy, 'JPY');
+                sumJpyEl.textContent = new Intl.NumberFormat('th-TH').format(sumJpy) + ' JPY';
                 const rate = Number(rateEl.value || 0.25);
                 const sumThb = Math.round(sumJpy * rate);
                 sumThbEl.textContent = new Intl.NumberFormat('th-TH').format(sumThb) + ' บาท';
             }
 
-            // ปุ่ม expand/collapse
-            const expandAllBtn = document.getElementById('expandAll');
-            const collapseAllBtn = document.getElementById('collapseAll');
-            expandAllBtn.addEventListener('click', () => {
+            // expand/collapse all
+            document.getElementById('expandAll').addEventListener('click', () => {
                 document.querySelectorAll('section.day details').forEach(d => d.open = true);
             });
-            collapseAllBtn.addEventListener('click', () => {
+            document.getElementById('collapseAll').addEventListener('click', () => {
                 document.querySelectorAll('section.day details').forEach(d => d.open = false);
             });
 
-            // แสดงค่าเข้า (บาท) เริ่มต้นและเมื่อเปลี่ยนเรท/ออปชัน
-            rateEl.addEventListener('input', recalc);
-            optEl.addEventListener('change', recalc);
+            // recalc on change
+            document.getElementById('rate').addEventListener('input', recalc);
+            document.getElementById('includeOptional').addEventListener('change', recalc);
+
+            // initial
             recalc();
 
-            // เลื่อนขึ้นบน
+            // scroll to top
             document.getElementById('scrollTop').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
-            // ปรับสไตล์คอลัมน์ค่าเข้าเป็น "ฟรี" หลังคำนวณ
-            function paintFree() {
-                document.querySelectorAll('tbody tr').forEach(tr => {
-                    const fee = Number(tr.getAttribute('data-fee-jpy') || 0);
-                    const optional = tr.getAttribute('data-optional') === '1';
-                    const cell = tr.querySelector('.fee');
-                    if (!cell) return;
-                    if (fee === 0) {
-                        cell.classList.add('free');
-                    } else if (optional) {
-                        // แสดงสีเตือนเมื่อเป็นออปชัน
-                        cell.classList.remove('free');
-                    } else {
-                        cell.classList.remove('free');
-                    }
-                });
-            }
-            paintFree();
         })();
     </script>
 
