@@ -1,1097 +1,752 @@
 <!DOCTYPE html>
 <html lang="th">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>แผนเที่ยว 7 วัน — 7-Day Trip Plan — 7日間旅行プラン</title>
-    <style>
-        :root {
-            --bg: #0b1020;
-            --card: #111834;
-            --muted: #a9b4d0;
-            --text: #eaf0ff;
-            --accent: #6ee7ff;
-            --table: #0f1530;
-            --chip: #1b2447;
-            --ok: #23d18b;
-            --warn: #ffd166;
-        }
-
-        * {
-            box-sizing: border-box
-        }
-
-        body {
-            margin: 0;
-            background: linear-gradient(180deg, #0b1020, #0a0f1e 60%, #070b17);
-            color: var(--text);
-            font-family: system-ui, -apple-system, Segoe UI, Roboto, "Sarabun", "Noto Sans JP", sans-serif;
-            line-height: 1.55
-        }
-
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            backdrop-filter: saturate(140%) blur(8px);
-            background: #0b1020cc;
-            border-bottom: 1px solid #223
-        }
-
-        .wrap {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 16px
-        }
-
-        h1 {
-            margin: 6px 0 2px;
-            font-weight: 800
-        }
-
-        .sub {
-            color: var(--muted);
-            font-size: .95rem
-        }
-
-        .lang-buttons {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-top: 10px
-        }
-
-        .btn {
-            appearance: none;
-            border: 1px solid #2a3568;
-            background: #101a3b;
-            color: #cfe6ff;
-            padding: 8px 12px;
-            border-radius: 10px;
-            cursor: pointer
-        }
-
-        .btn:hover {
-            filter: brightness(1.08)
-        }
-
-        .controls {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 10px
-        }
-
-        .chip {
-            background: var(--chip);
-            border: 1px solid #2a3568;
-            padding: 6px 10px;
-            border-radius: 999px;
-            font-size: .85rem;
-            color: var(--muted)
-        }
-
-        main .wrap {
-            padding-top: 10px;
-            padding-bottom: 80px
-        }
-
-        section.day {
-            border: 1px solid #223;
-            background: var(--card);
-            margin: 16px auto;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, .25)
-        }
-
-        .day-head {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            padding: 14px 16px;
-            background: linear-gradient(90deg, #121b3a, #0e1631);
-            border-bottom: 1px solid #223
-        }
-
-        .meta {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap
-        }
-
-        .table-wrap {
-            overflow-x: auto
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: var(--table);
-            min-width: 860px
-        }
-
-        th,
-        td {
-            padding: 11px 10px;
-            border-bottom: 1px solid #1c2344;
-            vertical-align: top;
-            text-align: left
-        }
-
-        thead th {
-            position: sticky;
-            top: 84px;
-            background: #0f1530f2;
-            z-index: 5
-        }
-
-        tbody tr:hover td {
-            background: #0f1a3a80
-        }
-
-        .fee-free {
-            color: var(--ok);
-            font-weight: 700
-        }
-
-        .fee-warn {
-            color: var(--warn);
-            font-weight: 700
-        }
-
-        .note {
-            color: var(--muted)
-        }
-
-        .legend {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 8px
-        }
-
-        .square {
-            width: 10px;
-            height: 10px;
-            border-radius: 2px;
-            display: inline-block;
-            margin-right: 6px
-        }
-
-        .sq-free {
-            background: var(--ok)
-        }
-
-        .sq-paid {
-            background: var(--accent)
-        }
-
-        .sq-opt {
-            background: var(--warn)
-        }
-
-        .hidden {
-            display: none !important
-        }
-
-        @media (max-width:900px) {
-            thead th {
-                top: 120px
-            }
-        }
-
-        @media (max-width:600px) {
-            h1 {
-                font-size: 1.1rem
-            }
-
-            thead th {
-                top: 140px
-            }
-
-            table {
-                min-width: 720px
-            }
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>แผนเที่ยว 7 วัน — 7-Day Trip Plan — 7日間旅行プラン</title>
+<style>
+  :root{
+    --bg:#0b1020; --card:#111834; --muted:#a9b4d0; --text:#eaf0ff;
+    --accent:#6ee7ff; --table:#0f1530; --chip:#1b2447; --ok:#23d18b; --warn:#ffd166;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:linear-gradient(180deg,#0b1020,#0a0f1e 60%,#070b17);
+       color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,"Sarabun","Noto Sans JP",sans-serif;line-height:1.55}
+  header{position:sticky;top:0;z-index:10;backdrop-filter:saturate(140%) blur(8px);background:#0b1020cc;border-bottom:1px solid #223}
+  .wrap{max-width:1100px;margin:0 auto;padding:16px}
+  h1{margin:6px 0 2px;font-weight:800}
+  .sub{color:var(--muted);font-size:.95rem}
+  .lang-buttons{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .btn{appearance:none;border:1px solid #2a3568;background:#101a3b;color:#cfe6ff;padding:8px 12px;border-radius:10px;cursor:pointer}
+  .btn:hover{filter:brightness(1.08)}
+  .chip{background:var(--chip);border:1px solid #2a3568;padding:6px 10px;border-radius:999px;font-size:.85rem;color:var(--muted)}
+  /* Panel */
+  .panel{border:1px solid #223;background:#0e1631;border-radius:14px;padding:12px;margin:16px 0}
+  .panel h3{margin:0 0 8px;font-size:1rem}
+  .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+  .grid .col-2{grid-column:span 2}
+  .input, select{width:100%;background:#101a3b;border:1px solid #2a3568;color:#eaf0ff;border-radius:8px;padding:8px}
+  .totals{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+  .pill{background:#101a3b;border:1px solid #2a3568;border-radius:999px;padding:8px 12px}
+  .toolbox{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+  /* Day sections & tables */
+  main .wrap{padding-top:10px;padding-bottom:80px}
+  section.day{border:1px solid #223;background:var(--card);margin:16px auto;border-radius:16px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.25)}
+  .day-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px;background:linear-gradient(90deg,#121b3a,#0e1631);border-bottom:1px solid #223}
+  .meta{display:flex;gap:8px;flex-wrap:wrap}
+  .table-wrap{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;background:var(--table);min-width:960px}
+  th,td{padding:11px 10px;border-bottom:1px solid #1c2344;vertical-align:top;text-align:left}
+  thead th{position:sticky;top:180px;background:#0f1530f2;z-index:5}
+  tbody tr:hover td{background:#0f1a3a80}
+  .fee-free{color:var(--ok);font-weight:700}
+  .fee-warn{color:var(--warn);font-weight:700}
+  .note{color:var(--muted)}
+  .legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+  .square{width:10px;height:10px;border-radius:2px;display:inline-block;margin-right:6px}
+  .sq-free{background:var(--ok)} .sq-paid{background:var(--accent)} .sq-opt{background:var(--warn)}
+  .day-total{padding:10px 16px;background:#0f1838;border-top:1px solid #223;display:flex;gap:10px;flex-wrap:wrap}
+  .hidden{display:none !important}
+  @media (max-width:1024px){ thead th{top:220px} }
+  @media (max-width:700px){
+    thead th{top:260px}
+    table{min-width:780px}
+  }
+</style>
 </head>
-
 <body>
 
-    <header>
-        <div class="wrap">
-            <!-- Titles -->
-            <h1 data-lang="th">แผนเที่ยว 7 วัน (8–15 เม.ย. 2026) — ขับรถเที่ยว</h1>
-            <h1 data-lang="en" class="hidden">7-Day Road Trip Plan (Apr 8–15, 2026)</h1>
-            <h1 data-lang="jp" class="hidden">7日間ドライブ旅プラン（2026年4月8日〜15日）</h1>
+<header>
+  <div class="wrap">
+    <h1 data-lang="th">แผนเที่ยว 7 วัน (8–15 เม.ย. 2026) — ขับรถเที่ยว</h1>
+    <h1 data-lang="en" class="hidden">7-Day Road Trip Plan (Apr 8–15, 2026)</h1>
+    <h1 data-lang="jp" class="hidden">7日間ドライブ旅プラン（2026年4月8日〜15日）</h1>
 
-            <!-- Subtitle -->
-            <div class="sub" data-lang="th">ตารางละเอียด: เวลา | สถานที่ | ค่าเข้า | เวลาเปิด–ปิด | หมายเหตุ
-                (กดสลับภาษาได้)</div>
-            <div class="sub hidden" data-lang="en">Detailed schedule: Time | Place | Fee | Opening hours | Notes (switch
-                language)</div>
-            <div class="sub hidden" data-lang="jp">詳細スケジュール：時間｜場所｜料金｜営業時間｜備考（言語切替可）</div>
+    <div class="sub" data-lang="th">ตารางละเอียด: เวลา | สถานที่ | ค่าเข้า | เวลาเปิด–ปิด | หมายเหตุ | นับรวม</div>
+    <div class="sub hidden" data-lang="en">Details: Time | Place | Fee | Hours | Notes | Include</div>
+    <div class="sub hidden" data-lang="jp">詳細：時間｜場所｜料金｜営業時間｜備考｜合算</div>
 
-            <!-- Language buttons -->
-            <div class="lang-buttons">
-                <button class="btn" onclick="setLang('th')">ไทย 🇹🇭</button>
-                <button class="btn" onclick="setLang('en')">English 🇬🇧</button>
-                <button class="btn" onclick="setLang('jp')">日本語 🇯🇵</button>
-            </div>
+    <div class="lang-buttons">
+      <button class="btn" onclick="setLang('th')">ไทย 🇹🇭</button>
+      <button class="btn" onclick="setLang('en')">English 🇬🇧</button>
+      <button class="btn" onclick="setLang('jp')">日本語 🇯🇵</button>
+    </div>
 
-            <!-- Legend -->
-            <div class="legend">
-                <span class="chip"><span class="square sq-free"></span><span data-lang="th">ฟรี</span><span
-                        data-lang="en" class="hidden">Free</span><span data-lang="jp" class="hidden">無料</span></span>
-                <span class="chip"><span class="square sq-paid"></span><span data-lang="th">มีค่าใช้จ่าย</span><span
-                        data-lang="en" class="hidden">Paid</span><span data-lang="jp" class="hidden">有料</span></span>
-                <span class="chip"><span class="square sq-opt"></span><span
-                        data-lang="th">ออปชัน/ต้องเช็ควัน</span><span data-lang="en" class="hidden">Optional/Check
-                        schedule</span><span data-lang="jp" class="hidden">オプション/要日程確認</span></span>
-            </div>
+    <div class="legend">
+      <span class="chip"><span class="square sq-free"></span><span data-lang="th">ฟรี</span><span data-lang="en" class="hidden">Free</span><span data-lang="jp" class="hidden">無料</span></span>
+      <span class="chip"><span class="square sq-paid"></span><span data-lang="th">มีค่าใช้จ่าย</span><span data-lang="en" class="hidden">Paid</span><span data-lang="jp" class="hidden">有料</span></span>
+      <span class="chip"><span class="square sq-opt"></span><span data-lang="th">ออปชัน/เช็ควัน</span><span data-lang="en" class="hidden">Optional/Check date</span><span data-lang="jp" class="hidden">オプション/要確認</span></span>
+    </div>
+
+    <!-- EXPENSE PANEL -->
+    <div class="panel" id="panel">
+      <h3 data-lang="th">สรุปค่าใช้จ่ายรวม</h3>
+      <h3 data-lang="en" class="hidden">Expense Summary</h3>
+      <h3 data-lang="jp" class="hidden">費用サマリー</h3>
+
+      <div class="grid">
+        <div>
+          <label class="mini" data-lang="th">เรทแลกเปลี่ยน (THB / 1 JPY)</label>
+          <label class="mini hidden" data-lang="en">FX Rate (THB per 1 JPY)</label>
+          <label class="mini hidden" data-lang="jp">為替レート（1円あたりTHB）</label>
+          <input id="fx" class="input" type="number" step="0.001" value="0.25">
         </div>
-    </header>
-
-    <main>
-        <div class="wrap">
-
-            <!-- ===== Day 1 ===== -->
-            <section class="day">
-                <div class="day-head">
-                    <div>
-                        <div data-lang="th">Day 1 — โตเกียว → คาวากุจิโกะ (Yamanashi)</div>
-                        <div data-lang="en" class="hidden">Day 1 — Tokyo → Kawaguchiko (Yamanashi)</div>
-                        <div data-lang="jp" class="hidden">1日目 — 東京 → 河口湖（山梨）</div>
-                    </div>
-                    <div class="meta">
-                        <span class="chip" data-lang="th">ขับ ~2 ชม.</span>
-                        <span class="chip hidden" data-lang="en">Drive ~2h</span>
-                        <span class="chip hidden" data-lang="jp">車で約2時間</span>
-                        <span class="chip" data-lang="th">ซากุระ Chureito พีค</span>
-                        <span class="chip hidden" data-lang="en">Chureito cherry blossoms peak</span>
-                        <span class="chip hidden" data-lang="jp">忠霊塔の桜ピーク</span>
-                    </div>
-                </div>
-
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th><span data-lang="th">เวลา</span><span data-lang="en" class="hidden">Time</span><span
-                                        data-lang="jp" class="hidden">時間</span></th>
-                                <th><span data-lang="th">สถานที่</span><span data-lang="en"
-                                        class="hidden">Place</span><span data-lang="jp" class="hidden">場所</span></th>
-                                <th><span data-lang="th">ค่าเข้า</span><span data-lang="en"
-                                        class="hidden">Fee</span><span data-lang="jp" class="hidden">料金</span></th>
-                                <th><span data-lang="th">เวลาเปิด–ปิด</span><span data-lang="en" class="hidden">Opening
-                                        Hours</span><span data-lang="jp" class="hidden">営業時間</span></th>
-                                <th><span data-lang="th">หมายเหตุ</span><span data-lang="en"
-                                        class="hidden">Notes</span><span data-lang="jp" class="hidden">備考</span></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>10:00</td>
-                                <td>Chureito Pagoda（<span data-lang="jp">忠霊塔 / 新倉山浅間公園</span>）</td>
-                                <td class="fee-free"><span data-lang="th">ฟรี</span><span data-lang="en"
-                                        class="hidden">Free</span><span data-lang="jp" class="hidden">無料</span></td>
-                                <td>8:30–17:00</td>
-                                <td class="note"><span data-lang="th">จุดชมฟูจิ + ซากุระ</span><span data-lang="en"
-                                        class="hidden">Mt. Fuji & cherry blossom view</span><span data-lang="jp"
-                                        class="hidden">富士山と桜の名所</span></td>
-                            </tr>
-                            <tr>
-                                <td>11:30</td>
-                                <td>Oshino Hakkai（<span data-lang="jp">忍野八海</span>）</td>
-                                <td class="fee-free"><span data-lang="th">ฟรี</span><span data-lang="en"
-                                        class="hidden">Free</span><span data-lang="jp" class="hidden">無料</span></td>
-                                <td><span data-lang="th">ตลอดวัน</span><span data-lang="en"
-                                        class="hidden">24h</span><span data-lang="jp" class="hidden">24時間</span></td>
-                                <td class="note"><span data-lang="th">หมู่บ้านน้ำศักดิ์สิทธิ์</span><span data-lang="en"
-                                        class="hidden">Sacred spring village</span><span data-lang="jp"
-                                        class="hidden">名水の里</span></td>
-                            </tr>
-                            <tr>
-                                <td>13:00</td>
-                                <td><span data-lang="th">ปั่นจักรยานรอบ Kawaguchiko</span><span data-lang="en"
-                                        class="hidden">Cycling around Kawaguchiko</span><span data-lang="jp"
-                                        class="hidden">河口湖サイクリング</span></td>
-                                <td><span data-lang="th">เช่าจักรยาน 1,500–3,000 เยน</span><span data-lang="en"
-                                        class="hidden">Bike rental ¥1,500–3,000</span><span data-lang="jp"
-                                        class="hidden">レンタサイクル 1,500〜3,000円</span></td>
-                                <td>~9:00–17:00</td>
-                                <td class="note"><span data-lang="th">วน ~18–20 กม. ผ่าน Oishi Park, Ohashi,
-                                        Ubuyagasaki</span><span data-lang="en" class="hidden">18–20 km loop via Oishi
-                                        Park, Ohashi Bridge, Ubuyagasaki</span><span data-lang="jp"
-                                        class="hidden">大石公園・大橋・産屋ヶ崎を巡る約18〜20km</span></td>
-                            </tr>
-                            <tr>
-                                <td>16:00</td>
-                                <td><span data-lang="th">คาเฟ่ริมทะเลสาบ / เช็คอิน</span><span data-lang="en"
-                                        class="hidden">Lakeside café / Check-in</span><span data-lang="jp"
-                                        class="hidden">湖畔カフェ / チェックイン</span></td>
-                                <td class="fee-free"><span data-lang="th">–</span><span data-lang="en"
-                                        class="hidden">–</span><span data-lang="jp" class="hidden">–</span></td>
-                                <td>–</td>
-                                <td class="note"><span data-lang="th">ออนเซ็นวิวฟูจิ</span><span data-lang="en"
-                                        class="hidden">Onsen with Fuji view</span><span data-lang="jp"
-                                        class="hidden">富士見温泉</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- ===== Day 2 ===== -->
-            <section class="day">
-                <div class="day-head">
-                    <div>
-                        <div data-lang="th">Day 2 — Fuji Five Lakes</div>
-                        <div data-lang="en" class="hidden">Day 2 — Fuji Five Lakes</div>
-                        <div data-lang="jp" class="hidden">2日目 — 富士五湖</div>
-                    </div>
-                    <div class="meta">
-                        <span class="chip" data-lang="th">ขับวนรอบทะเลสาบ</span>
-                        <span class="chip hidden" data-lang="en">Lake loop drive</span>
-                        <span class="chip hidden" data-lang="jp">湖巡りドライブ</span>
-                    </div>
-                </div>
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th><span data-lang="th">เวลา</span><span data-lang="en" class="hidden">Time</span><span
-                                        data-lang="jp" class="hidden">時間</span></th>
-                                <th><span data-lang="th">สถานที่</span><span data-lang="en"
-                                        class="hidden">Place</span><span data-lang="jp" class="hidden">場所</span></th>
-                                <th><span data-lang="th">ค่าเข้า</span><span data-lang="en"
-                                        class="hidden">Fee</span><span data-lang="jp" class="hidden">料金</span></th>
-                                <th><span data-lang="th">เวลาเปิด–ปิด</span><span data-lang="en" class="hidden">Opening
-                                        Hours</span><span data-lang="jp" class="hidden">営業時間</span></th>
-                                <th><span data-lang="th">หมายเหตุ</span><span data-lang="en"
-                                        class="hidden">Notes</span><span data-lang="jp" class="hidden">備考</span></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>08:30</td>
-                                <td>Lake Yamanakako（<span data-lang="jp">山中湖</span>）</td>
-                                <td class="fee-free"><span data-lang="th">ฟรี</span><span data-lang="en"
-                                        class="hidden">Free</span><span data-lang="jp" class="hidden">無料</span></td>
-                                <td><span data-lang="th">ตลอดวัน</span><span data-lang="en"
-                                        class="hidden">24h</span><span data-lang="jp" class="hidden">24時間</span></td>
-                                <td class="note"><span data-lang="th">ลู่วิ่งจักรยานยาว ปลอดภัย</span><span
-                                        data-lang="en" class="hidden">Dedicated cycling path</span><span data-lang="jp"
-                                        class="hidden">サイクリング道あり</span></td>
-                            </tr>
-                            <tr>
-                                <td>10:30</td>
-                                <td>Lake Shojiko（<span data-lang="jp">精進湖</span>）</td>
-                                <td class="fee-free"><span data-lang="th">ฟรี</span><span data-lang="en"
-                                        class="hidden">Free</span><span data-lang="jp" class="hidden">無料</span></td>
-                                <td>24h</td>
-                                <td class="note"><span data-lang="th">เงียบสงบ วิวโรแมนติก</span><span data-lang="en"
-                                        class="hidden">Quiet & romantic</span><span data-lang="jp"
-                                        class="hidden">静かで落ち着く</span></td>
-                            </tr>
-                            <tr>
-                                <td>12:00</td>
-                                <td>Lake Motosu（<span data-lang="jp">本栖湖</span>）</td>
-                                <td class="fee-free"><span data-lang="th">ฟรี</span><span data-lang="en"
-                                        class="hidden">Free</span><span data-lang="jp" class="hidden">無料</span></td>
-                                <td>24h</td>
-                                <td class="note"><span data-lang="th">วิวฟูจิบนธนบัตร ¥1,000</span><span data-lang="en"
-                                        class="hidden">Mt. Fuji on ¥1,000 note</span><span data-lang="jp"
-                                        class="hidden">千円札の富士</span></td>
-                            </tr>
-                            <tr>
-                                <td>14:00</td>
-                                <td>Narusawa Ice Cave（<span data-lang="jp">鳴沢氷穴</span>）</td>
-                                <td><span data-lang="th">~350 เยน</span><span data-lang="en"
-                                        class="hidden">~¥350</span><span data-lang="jp" class="hidden">約350円</span></td>
-                                <td>9:00–17:00</td>
-                                <td class="note"><span data-lang="th">ถ้ำน้ำแข็ง</span><span data-lang="en"
-                                        class="hidden">Ice cave</span><span data-lang="jp" class="hidden">氷の洞窟</span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- ===== Day 3 ===== -->
-            <section class="day">
-                <div class="day-head">
-                    <div>
-                        <div data-lang="th">Day 3 — Fujinomiya → Atami (Shizuoka)</div>
-                        <div data-lang="en" class="hidden">Day 3 — Fujinomiya → Atami (Shizuoka)</div>
-                        <div data-lang="jp" class="hidden">3日目 — 富士宮 → 熱海（静岡）</div>
-                    </div>
-                    <div class="meta">
-                        <span class="chip" data-lang="th">ไร่ชา + สะพานวิวฟูจิ</span>
-                        <span class="chip hidden" data-lang="en">Tea fields + Fuji bridge view</span>
-                        <span class="chip hidden" data-lang="jp">茶畑＋富士見橋</span>
-                    </div>
-                </div>
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th><span data-lang="th">เวลา</span><span data-lang="en" class="hidden">Time</span><span
-                                        data-lang="jp" class="hidden">時間</span></th>
-                                <th><span data-lang="th">สถานที่</span><span data-lang="en"
-                                        class="hidden">Place</span><span data-lang="jp" class="hidden">場所</span></th>
-                                <th><span data-lang="th">ค่าเข้า</span><span data-lang="en"
-                                        class="hidden">Fee</span><span data-lang="jp" class="hidden">料金</span></th>
-                                <th><span data-lang="th">เวลาเปิด–ปิด</span><span data-lang="en" class="hidden">Opening
-                                        Hours</span><span data-lang="jp" class="hidden">営業時間</span></th>
-                                <th><span data-lang="th">หมายเหตุ</span><span data-lang="en"
-                                        class="hidden">Notes</span><span data-lang="jp" class="hidden">備考</span></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>09:30</td>
-                                <td>Obuchi Sasaba（<span data-lang="jp">大淵笹場</span>）</td>
-                                <td class="fee-free"><span data-lang="th">ฟรี</span><span data-lang="en"
-                                        class="hidden">Free</span><span data-lang="jp" class="hidden">無料</span></td>
-                                <td>24h</td>
-                                <td class="note"><span data-lang="th">ไร่ชา + วิวฟูจิ</span><span data-lang="en"
-                                        class="hidden">Tea fields + Fuji view</span><span data-lang="jp"
-                                        class="hidden">茶畑と富士山</span></td>
-                            </tr>
-                            <tr>
-                                <td>11:00</td>
-                                <td>Fujisan Yumeno Ohashi（<span data-lang="jp">富士山夢の大橋</span>）</td>
-                                <td class="fee-free"><span data-lang="th">ฟรี</span><span data-lang="en"
-                                        class="hidden">Free</span><span data-lang="jp" class="hidden">無料</span></td>
-                                <td>24h</td>
-                                <td class="note"><span data-lang="th">สะพานชมฟูจิ</span><span data-lang="en"
-                                        class="hidden">Fuji view bridge</span><span data-lang="jp"
-                                        class="hidden">富士見橋</span></td>
-                            </tr>
-                            <tr>
-                                <td>13:00</td>
-                                <td>Fujisan Hongu Sengen Taisha（<span data-lang="jp">富士山本宮浅間大社</span>）</td>
-                                <td class="fee-free"><span data-lang="th">ฟรี</span><span data-lang="en"
-                                        class="hidden">Free</span><span data-lang="jp" class="hidden">無料</span></td>
-                                <td>9:00–17:00</td>
-                                <td class="note"><span data-lang="th">ศาลเจ้าหลักของฟูจิ</span><span data-lang="en"
-                                        class="hidden">Main shrine of Mt. Fuji</span><span data-lang="jp"
-                                        class="hidden">富士山の総本宮</span></td>
-                            </tr>
-                            <tr>
-                                <td>16:00</td>
-                                <td><span data-lang="th">ขับสู่ Atami & เช็คอิน</span><span data-lang="en"
-                                        class="hidden">Drive to Atami & Check-in</span><span data-lang="jp"
-                                        class="hidden">熱海へ移動・チェックイン</span></td>
-                                <td class="fee-free">–</td>
-                                <td>–</td>
-                                <td class="note"><span data-lang="th">พักออนเซ็น</span><span data-lang="en"
-                                        class="hidden">Onsen stay</span><span data-lang="jp" class="hidden">温泉宿</span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- ===== Day 4 ===== -->
-            <section class="day">
-                <div class="day-head">
-                    <div>
-                        <div data-lang="th">Day 4 — Atami (Art, Onsen & Fireworks)</div>
-                        <div data-lang="en" class="hidden">Day 4 — Atami (Art, Onsen & Fireworks)</div>
-                        <div data-lang="jp" class="hidden">4日目 — 熱海（美術・温泉・花火）</div>
-                    </div>
-                    <div class="meta">
-                        <span class="chip" data-lang="th">พิพิธภัณฑ์ + ปราสาท</span>
-                        <span class="chip hidden" data-lang="en">Museum + Castle</span>
-                        <span class="chip hidden" data-lang="jp">美術館＋城</span>
-                    </div>
-                </div>
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th><span data-lang="th">เวลา</span><span data-lang="en" class="hidden">Time</span><span
-                                        data-lang="jp" class="hidden">時間</span></th>
-                                <th><span data-lang="th">สถานที่</span><span data-lang="en"
-                                        class="hidden">Place</span><span data-lang="jp" class="hidden">場所</span></th>
-                                <th><span data-lang="th">ค่าเข้า</span><span data-lang="en"
-                                        class="hidden">Fee</span><span data-lang="jp" class="hidden">料金</span></th>
-                                <th><span data-lang="th">เวลาเปิด–ปิด</span><span data-lang="en" class="hidden">Opening
-                                        Hours</span><span data-lang="jp" class="hidden">営業時間</span></th>
-                                <th><span data-lang="th">หมายเหตุ</span><span data-lang="en"
-                                        class="hidden">Notes</span><span data-lang="jp" class="hidden">備考</span></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>09:00</td>
-                                <td>Atami Castle（<span data-lang="jp">熱海城</span>）</td>
-                                <td>~1,000 <span data-lang="th">เยน</span><span data-lang="en"
-                                        class="hidden">JPY</span><span data-lang="jp" class="hidden">円</span></td>
-                                <td>9:00–17:00</td>
-                                <td class="note"><span data-lang="th">จุดชมวิวทะเล</span><span data-lang="en"
-                                        class="hidden">Sea view point</span><span data-lang="jp"
-                                        class="hidden">海の展望</span></td>
-                            </tr>
-                            <tr>
-                                <td>11:00</td>
-                                <td>MOA Museum of Art（<span data-lang="jp">MOA美術館</span>）</td>
-                                <td>~1,600 <span data-lang="th">เยน</span><span data-lang="en"
-                                        class="hidden">JPY</span><span data-lang="jp" class="hidden">円</span></td>
-                                <td>9:30–16:30</td>
-                                <td class="note"><span data-lang="th">วิวอ่าวสวย</span><span data-lang="en"
-                                        class="hidden">Great bay view</span><span data-lang="jp"
-                                        class="hidden">相模湾の眺望</span></td>
-                            </tr>
-                            <tr>
-                                <td>14:00</td>
-                                <td>Kinomiya Shrine（<span data-lang="jp">来宮神社</span>）</td>
-                                <td class="fee-free"><span data-lang="th">ฟรี</span><span data-lang="en"
-                                        class="hidden">Free</span><span data-lang="jp" class="hidden">無料</span></td>
-                                <td>24h</td>
-                                <td class="note"><span data-lang="th">ต้นไม้พันปี</span><span data-lang="en"
-                                        class="hidden">Sacred giant tree</span><span data-lang="jp"
-                                        class="hidden">御神木</span></td>
-                            </tr>
-                            <tr>
-                                <td>15:30</td>
-                                <td>Atami Sun Beach</td>
-                                <td class="fee-free">–</td>
-                                <td>24h</td>
-                                <td class="note"><span data-lang="th">เดินเล่นช่วงเย็น</span><span data-lang="en"
-                                        class="hidden">Evening stroll</span><span data-lang="jp"
-                                        class="hidden">夕方の散策</span></td>
-                            </tr>
-                            <tr>
-                                <td>20:20</td>
-                                <td><span data-lang="th">Atami Fireworks (อีเวนต์)</span><span data-lang="en"
-                                        class="hidden">Atami Fireworks (event)</span><span data-lang="jp"
-                                        class="hidden">熱海海上花火大会（イベント）</span></td>
-                                <td class="fee-free"><span data-lang="th">ฟรี</span><span data-lang="en"
-                                        class="hidden">Free</span><span data-lang="jp" class="hidden">無料</span></td>
-                                <td>20:20–20:40</td>
-                                <td class="note fee-warn"><span data-lang="th">โปรดเช็คตารางจริง</span><span
-                                        data-lang="en" class="hidden">Check actual schedule</span><span data-lang="jp"
-                                        class="hidden">開催日要確認</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- ===== Day 5 ===== -->
-            <section class="day">
-                <div class="day-head">
-                    <div>
-                        <div data-lang="th">Day 5 — North Izu (Mishima・Shuzenji)</div>
-                        <div data-lang="en" class="hidden">Day 5 — North Izu (Mishima・Shuzenji)</div>
-                        <div data-lang="jp" class="hidden">5日目 — 北伊豆（三島・修善寺）</div>
-                    </div>
-                    <div class="meta"><span class="chip" data-lang="th">Skywalk + Ropeway</span><span
-                            class="chip hidden" data-lang="en">Skywalk + Ropeway</span><span class="chip hidden"
-                            data-lang="jp">スカイウォーク＋ロープウェイ</span></div>
-                </div>
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th><span data-lang="th">เวลา</span><span data-lang="en" class="hidden">Time</span><span
-                                        data-lang="jp" class="hidden">時間</span></th>
-                                <th><span data-lang="th">สถานที่</span><span data-lang="en"
-                                        class="hidden">Place</span><span data-lang="jp" class="hidden">場所</span></th>
-                                <th><span data-lang="th">ค่าเข้า</span><span data-lang="en"
-                                        class="hidden">Fee</span><span data-lang="jp" class="hidden">料金</span></th>
-                                <th><span data-lang="th">เวลาเปิด–ปิด</span><span data-lang="en" class="hidden">Opening
-                                        Hours</span><span data-lang="jp" class="hidden">営業時間</span></th>
-                                <th><span data-lang="th">หมายเหตุ</span><span data-lang="en"
-                                        class="hidden">Notes</span><span data-lang="jp" class="hidden">備考</span></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>09:00</td>
-                                <td>Mishima Skywalk（<span data-lang="jp">三島スカイウォーク</span>）</td>
-                                <td>~1,100 <span data-lang="th">เยน</span><span data-lang="en"
-                                        class="hidden">JPY</span><span data-lang="jp" class="hidden">円</span></td>
-                                <td>9:00–17:00</td>
-                                <td class="note"><span data-lang="th">สะพานแขวนยาวสุดของญี่ปุ่น</span><span
-                                        data-lang="en" class="hidden">Japan’s longest suspension bridge</span><span
-                                        data-lang="jp" class="hidden">日本最長の吊り橋</span></td>
-                            </tr>
-                            <tr>
-                                <td>11:00</td>
-                                <td>Izu Panorama Park Ropeway（<span data-lang="jp">伊豆パノラマパーク</span>）</td>
-                                <td>~2,000 <span data-lang="th">เยน</span><span data-lang="en"
-                                        class="hidden">JPY</span><span data-lang="jp" class="hidden">円</span></td>
-                                <td>9:00–17:00</td>
-                                <td class="note"><span data-lang="th">Fuji Terrace + footbath café</span><span
-                                        data-lang="en" class="hidden">Fuji Terrace + footbath café</span><span
-                                        data-lang="jp" class="hidden">富士テラス＆足湯カフェ</span></td>
-                            </tr>
-                            <tr>
-                                <td>14:00</td>
-                                <td>Shuzenji Temple（<span data-lang="jp">修善寺</span>）</td>
-                                <td class="fee-free"><span data-lang="th">ฟรี</span><span data-lang="en"
-                                        class="hidden">Free</span><span data-lang="jp" class="hidden">無料</span></td>
-                                <td>9:00–16:00</td>
-                                <td class="note"><span data-lang="th">วัดเก่าแก่และป่าไผ่</span><span data-lang="en"
-                                        class="hidden">Historic temple & bamboo grove</span><span data-lang="jp"
-                                        class="hidden">古刹・竹林</span></td>
-                            </tr>
-                            <tr>
-                                <td>15:30</td>
-                                <td>Rakuju-en Garden（<span data-lang="jp">楽寿園</span>）</td>
-                                <td>~400 <span data-lang="th">เยน</span><span data-lang="en"
-                                        class="hidden">JPY</span><span data-lang="jp" class="hidden">円</span></td>
-                                <td>9:00–17:00</td>
-                                <td class="note"><span data-lang="th">สวนญี่ปุ่นใน Mishima</span><span data-lang="en"
-                                        class="hidden">Japanese garden in Mishima</span><span data-lang="jp"
-                                        class="hidden">三島の日本庭園</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- ===== Day 6 ===== -->
-            <section class="day">
-                <div class="day-head">
-                    <div>
-                        <div data-lang="th">Day 6 — South & West Izu (Jogasaki・Dogashima)</div>
-                        <div data-lang="en" class="hidden">Day 6 — South & West Izu (Jogasaki・Dogashima)</div>
-                        <div data-lang="jp" class="hidden">6日目 — 南西伊豆（城ヶ崎・堂ヶ島）</div>
-                    </div>
-                    <div class="meta"><span class="chip" data-lang="th">ชายฝั่ง + น้ำตก + เรือ</span><span
-                            class="chip hidden" data-lang="en">Coast + Waterfalls + Boat</span><span class="chip hidden"
-                            data-lang="jp">海岸＋滝＋遊覧船</span></div>
-                </div>
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th><span data-lang="th">เวลา</span><span data-lang="en" class="hidden">Time</span><span
-                                        data-lang="jp" class="hidden">時間</span></th>
-                                <th><span data-lang="th">สถานที่</span><span data-lang="en"
-                                        class="hidden">Place</span><span data-lang="jp" class="hidden">場所</span></th>
-                                <th><span data-lang="th">ค่าเข้า</span><span data-lang="en"
-                                        class="hidden">Fee</span><span data-lang="jp" class="hidden">料金</span></th>
-                                <th><span data-lang="th">เวลาเปิด–ปิด</span><span data-lang="en" class="hidden">Opening
-                                        Hours</span><span data-lang="jp" class="hidden">営業時間</span></th>
-                                <th><span data-lang="th">หมายเหตุ</span><span data-lang="en"
-                                        class="hidden">Notes</span><span data-lang="jp" class="hidden">備考</span></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>09:00</td>
-                                <td>Jogasaki Coast & Kadowaki Bridge（<span data-lang="jp">城ヶ崎海岸・門脇吊橋</span>）</td>
-                                <td class="fee-free"><span data-lang="th">ฟรี</span><span data-lang="en"
-                                        class="hidden">Free</span><span data-lang="jp" class="hidden">無料</span></td>
-                                <td>24h</td>
-                                <td class="note"><span data-lang="th">หน้าผาลาวา + สะพานแขวน</span><span data-lang="en"
-                                        class="hidden">Lava cliffs & suspension bridge</span><span data-lang="jp"
-                                        class="hidden">溶岩海岸・吊橋</span></td>
-                            </tr>
-                            <tr>
-                                <td>10:30</td>
-                                <td>Shirahama Shrine（<span data-lang="jp">白浜神社</span> / Izu）</td>
-                                <td class="fee-free"><span data-lang="th">ฟรี</span><span data-lang="en"
-                                        class="hidden">Free</span><span data-lang="jp" class="hidden">無料</span></td>
-                                <td>24h</td>
-                                <td class="note"><span data-lang="th">ศาลเจ้าริมทะเล</span><span data-lang="en"
-                                        class="hidden">Seaside shrine</span><span data-lang="jp"
-                                        class="hidden">海辺の神社</span></td>
-                            </tr>
-                            <tr>
-                                <td>12:00</td>
-                                <td>Kawazu Nanadaru Waterfalls（<span data-lang="jp">河津七滝</span>）</td>
-                                <td><span class="fee-warn" data-lang="th">บางเส้นทาง ~300 เยน</span><span
-                                        class="fee-warn hidden" data-lang="en">Some trails ~¥300</span><span
-                                        class="fee-warn hidden" data-lang="jp">一部ルート 約300円</span></td>
-                                <td>24h</td>
-                                <td class="note"><span data-lang="th">น้ำตก 7 แห่ง</span><span data-lang="en"
-                                        class="hidden">Seven waterfalls</span><span data-lang="jp"
-                                        class="hidden">7つの滝</span></td>
-                            </tr>
-                            <tr>
-                                <td>14:00</td>
-                                <td>Kanazawa Waterfalls（Izu）</td>
-                                <td class="fee-free"><span data-lang="th">ฟรี</span><span data-lang="en"
-                                        class="hidden">Free</span><span data-lang="jp" class="hidden">無料</span></td>
-                                <td>24h</td>
-                                <td class="note"><span data-lang="th">น้ำตกกลางป่า เงียบสงบ</span><span data-lang="en"
-                                        class="hidden">Quiet forest falls</span><span data-lang="jp"
-                                        class="hidden">森の滝・静かな雰囲気</span></td>
-                            </tr>
-                            <tr>
-                                <td>15:30</td>
-                                <td>Dogashima Marine Boat（<span data-lang="jp">堂ヶ島洞くつめぐり遊覧船</span>）</td>
-                                <td>~1,300 <span data-lang="th">เยน</span><span data-lang="en"
-                                        class="hidden">JPY</span><span data-lang="jp" class="hidden">円</span></td>
-                                <td>9:00–16:00</td>
-                                <td class="note"><span data-lang="th">ล่องเรือชมถ้ำทะเล</span><span data-lang="en"
-                                        class="hidden">Sea cave cruise</span><span data-lang="jp"
-                                        class="hidden">青の洞窟クルーズ</span></td>
-                            </tr>
-                            <tr>
-                                <td>17:00</td>
-                                <td>Koganezaki Park（<span data-lang="jp">黄金崎公園</span>）</td>
-                                <td class="fee-free"><span data-lang="th">ฟรี</span><span data-lang="en"
-                                        class="hidden">Free</span><span data-lang="jp" class="hidden">無料</span></td>
-                                <td>24h</td>
-                                <td class="note"><span data-lang="th">ชมพระอาทิตย์ตก</span><span data-lang="en"
-                                        class="hidden">Sunset point</span><span data-lang="jp"
-                                        class="hidden">夕日の名所</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- ===== Day 7 ===== -->
-            <section class="day">
-                <div class="day-head">
-                    <div>
-                        <div data-lang="th">Day 7 — Kanagawa & Yokohama → Tokyo</div>
-                        <div data-lang="en" class="hidden">Day 7 — Kanagawa & Yokohama → Tokyo</div>
-                        <div data-lang="jp" class="hidden">7日目 — 神奈川・横浜 → 東京</div>
-                    </div>
-                    <div class="meta"><span class="chip" data-lang="th">เมืองเก่า & เมืองท่า</span><span
-                            class="chip hidden" data-lang="en">Historic town & port city</span><span class="chip hidden"
-                            data-lang="jp">古都＆港町</span></div>
-                </div>
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th><span data-lang="th">เวลา</span><span data-lang="en" class="hidden">Time</span><span
-                                        data-lang="jp" class="hidden">時間</span></th>
-                                <th><span data-lang="th">สถานที่</span><span data-lang="en"
-                                        class="hidden">Place</span><span data-lang="jp" class="hidden">場所</span></th>
-                                <th><span data-lang="th">ค่าเข้า</span><span data-lang="en"
-                                        class="hidden">Fee</span><span data-lang="jp" class="hidden">料金</span></th>
-                                <th><span data-lang="th">เวลาเปิด–ปิด</span><span data-lang="en" class="hidden">Opening
-                                        Hours</span><span data-lang="jp" class="hidden">営業時間</span></th>
-                                <th><span data-lang="th">หมายเหตุ</span><span data-lang="en"
-                                        class="hidden">Notes</span><span data-lang="jp" class="hidden">備考</span></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>09:00</td>
-                                <td>Odawara Castle（<span data-lang="jp">小田原城</span>）</td>
-                                <td>~500 <span data-lang="th">เยน</span><span data-lang="en"
-                                        class="hidden">JPY</span><span data-lang="jp" class="hidden">円</span></td>
-                                <td>9:00–17:00</td>
-                                <td class="note"><span data-lang="th">ปราสาทประวัติศาสตร์</span><span data-lang="en"
-                                        class="hidden">Historic castle</span><span data-lang="jp"
-                                        class="hidden">歴史ある城</span></td>
-                            </tr>
-                            <tr>
-                                <td>11:00</td>
-                                <td>Kotoku-in（<span data-lang="jp">高徳院（鎌倉大仏）</span>）</td>
-                                <td>~300 <span data-lang="th">เยน</span><span data-lang="en"
-                                        class="hidden">JPY</span><span data-lang="jp" class="hidden">円</span></td>
-                                <td>8:00–17:00</td>
-                                <td class="note"><span data-lang="th">พระใหญ่ไดบุทสึ</span><span data-lang="en"
-                                        class="hidden">Great Buddha of Kamakura</span><span data-lang="jp"
-                                        class="hidden">鎌倉大仏</span></td>
-                            </tr>
-                            <tr>
-                                <td>12:00</td>
-                                <td>Hase-dera Temple（<span data-lang="jp">長谷寺</span>）</td>
-                                <td>~400 <span data-lang="th">เยน</span><span data-lang="en"
-                                        class="hidden">JPY</span><span data-lang="jp" class="hidden">円</span></td>
-                                <td>8:00–17:00</td>
-                                <td class="note"><span data-lang="th">วัดริมเขา วิวทะเล</span><span data-lang="en"
-                                        class="hidden">Hillside temple with sea view</span><span data-lang="jp"
-                                        class="hidden">海を望む古刹</span></td>
-                            </tr>
-                            <tr>
-                                <td>14:00</td>
-                                <td>Enoshima Iwaya Cave（<span data-lang="jp">江の島岩屋</span>）</td>
-                                <td>~500 <span data-lang="th">เยน</span><span data-lang="en"
-                                        class="hidden">JPY</span><span data-lang="jp" class="hidden">円</span></td>
-                                <td>9:00–17:00</td>
-                                <td class="note"><span data-lang="th">ถ้ำริมทะเล</span><span data-lang="en"
-                                        class="hidden">Sea cave</span><span data-lang="jp" class="hidden">海食洞窟</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>17:00</td>
-                                <td><span data-lang="th">Yokohama (ตัวเลือก)</span><span data-lang="en"
-                                        class="hidden">Yokohama (optional)</span><span data-lang="jp"
-                                        class="hidden">横浜（オプション）</span> — <span data-lang="th">Minato Mirai / Ramen
-                                        Museum / อีเวนต์กันดั้ม*</span><span data-lang="en" class="hidden">Minato Mirai
-                                        / Ramen Museum / Gundam event*</span><span data-lang="jp"
-                                        class="hidden">みなとみらい／ラーメン博物館／ガンダム関連イベント*</span></td>
-                                <td><span data-lang="th">~380–1,650 เยน (จุดมีค่าเข้า)</span><span data-lang="en"
-                                        class="hidden">~¥380–1,650 (paid spots)</span><span data-lang="jp"
-                                        class="hidden">約380〜1,650円（有料施設）</span></td>
-                                <td>〜21:00</td>
-                                <td class="note fee-warn"><span data-lang="th">* สถานะ/เวลา “กันดั้ม” เปลี่ยนแปลงบ่อย
-                                        โปรดเช็คก่อนเดินทาง</span><span data-lang="en" class="hidden">* “Gundam”
-                                        status/hours vary; please verify before your visit</span><span data-lang="jp"
-                                        class="hidden">※「ガンダム」関連は変動あり、要事前確認</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- ===== Not Included / Optional ===== -->
-            <section class="day">
-                <div class="day-head">
-                    <div>
-                        <div data-lang="th">สถานที่ที่ยังไม่ได้ใส่ในแผน (ตัวเลือก)</div>
-                        <div data-lang="en" class="hidden">Places Not Included in This Plan (Optional)</div>
-                        <div data-lang="jp" class="hidden">今回のプランに未収載（オプション）</div>
-                    </div>
-                    <div class="meta">
-                        <span class="chip" data-lang="th">เหตุผล & คำแนะนำสลับจุด</span>
-                        <span class="chip hidden" data-lang="en">Reasons & swap tips</span>
-                        <span class="chip hidden" data-lang="jp">見送り理由と入替え提案</span>
-                    </div>
-                </div>
-
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th><span data-lang="th">จังหวัด</span><span data-lang="en"
-                                        class="hidden">Prefecture</span><span data-lang="jp" class="hidden">都道府県</span>
-                                </th>
-                                <th><span data-lang="th">สถานที่</span><span data-lang="en"
-                                        class="hidden">Place</span><span data-lang="jp" class="hidden">場所</span></th>
-                                <th><span data-lang="th">เหตุผลที่ไม่ได้ไป</span><span data-lang="en"
-                                        class="hidden">Reason not included</span><span data-lang="jp"
-                                        class="hidden">見送り理由</span></th>
-                                <th><span data-lang="th">คำแนะนำ</span><span data-lang="en"
-                                        class="hidden">Tip</span><span data-lang="jp" class="hidden">提案</span></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Yamanashi -->
-                            <tr>
-                                <td>Yamanashi</td>
-                                <td>Saru-hashi Bridge</td>
-                                <td>
-                                    <span data-lang="th">อยู่เหนือเส้นทางหลัก ขับอ้อมเพิ่ม ~1–1.5 ชม.</span>
-                                    <span data-lang="en" class="hidden">Far north of the loop; ~1–1.5h detour.</span>
-                                    <span data-lang="jp" class="hidden">周回ルートから北へ外れ、約1〜1.5時間の回り道。</span>
-                                </td>
-                                <td>
-                                    <span data-lang="th">มีเวลาเพิ่มค่อยสลับกับจุดริมทะเลสาบ</span>
-                                    <span data-lang="en" class="hidden">Swap in if you gain extra time.</span>
-                                    <span data-lang="jp" class="hidden">時間に余裕があれば差替え可。</span>
-                                </td>
-                            </tr>
-
-                            <!-- Shizuoka (main & Izu) -->
-                            <tr>
-                                <td>Shizuoka</td>
-                                <td>Miho no Matsubara</td>
-                                <td>
-                                    <span data-lang="th">ต้องอ้อมไปฝั่งเมืองชิซูโอกะ ไกลจากเส้น Izu/Atami</span>
-                                    <span data-lang="en" class="hidden">Long detour west to Shizuoka City.</span>
-                                    <span data-lang="jp" class="hidden">静岡市側へ大きく迂回が必要。</span>
-                                </td>
-                                <td>
-                                    <span data-lang="th">หากเน้นทะเล เลือกแทน Koganezaki ได้</span>
-                                    <span data-lang="en" class="hidden">Can replace Koganezaki if you prefer.</span>
-                                    <span data-lang="jp" class="hidden">海重視なら黄金崎と入替え可。</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Shizuoka (Fujinomiya)</td>
-                                <td>Shiraito Falls</td>
-                                <td>
-                                    <span data-lang="th">อยู่คนละทิศกับเส้นไป Atami เวลาไม่พอ</span>
-                                    <span data-lang="en" class="hidden">Opposite direction to Atami; time-tight.</span>
-                                    <span data-lang="jp" class="hidden">熱海方面と逆方向で時間的に厳しい。</span>
-                                </td>
-                                <td>
-                                    <span data-lang="th">สลับกับ Obuchi Sasaba ได้ถ้าชอบน้ำตก</span>
-                                    <span data-lang="en" class="hidden">Swap with Obuchi Sasaba if you prefer
-                                        waterfalls.</span>
-                                    <span data-lang="jp" class="hidden">滝優先なら大淵笹場と入替え可。</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Shizuoka (Fujinomiya)</td>
-                                <td>Lake Tanuki</td>
-                                <td>
-                                    <span data-lang="th">เหมาะแคมป์/ฟูจิยามะรุ่งสาง ขับอ้อมเพิ่ม</span>
-                                    <span data-lang="en" class="hidden">Best for camping/dawn view; adds detour.</span>
-                                    <span data-lang="jp" class="hidden">キャンプ・ご来光向け。迂回が必要。</span>
-                                </td>
-                                <td>
-                                    <span data-lang="th">ถ้าค้างโซนฟูจิโนะมิยะค่อยเพิ่ม</span>
-                                    <span data-lang="en" class="hidden">Add if staying near Fujinomiya.</span>
-                                    <span data-lang="jp" class="hidden">富士宮泊なら追加検討。</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Shizuoka (Izu)</td>
-                                <td>Mt. Omuro (Chairlift)</td>
-                                <td>
-                                    <span data-lang="th">กิจกรรมคล้าย Izu Panorama Park (มีโรปเวย์แล้ว)</span>
-                                    <span data-lang="en" class="hidden">Similar to Panorama Park (already
-                                        included).</span>
-                                    <span data-lang="jp" class="hidden">パノラマパークと体験が重複。</span>
-                                </td>
-                                <td>
-                                    <span data-lang="th">ถ้าฟ้าเปิดมาก เปลี่ยนจาก Rakuju-en ได้</span>
-                                    <span data-lang="en" class="hidden">On clear day, replace Rakuju-en.</span>
-                                    <span data-lang="jp" class="hidden">快晴なら楽寿園と入替え可。</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Shizuoka (Izu)</td>
-                                <td>Wasabi Village</td>
-                                <td>
-                                    <span data-lang="th">ลึกเข้าเขา ใช้เวลาขับเพิ่มพอสมควร</span>
-                                    <span data-lang="en" class="hidden">Deep inland; adds significant drive.</span>
-                                    <span data-lang="jp" class="hidden">山間部で移動時間が増える。</span>
-                                </td>
-                                <td>
-                                    <span data-lang="th">เหมาะเพิ่มในวันที่เที่ยวเฉพาะคาวาสึ</span>
-                                    <span data-lang="en" class="hidden">Best on a dedicated Kawazu day.</span>
-                                    <span data-lang="jp" class="hidden">河津中心の日に追加を。</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Shizuoka (Izu)</td>
-                                <td>Kawazu Sakura</td>
-                                <td>
-                                    <span data-lang="th">พีคช่วง ก.พ.–มี.ค. (เม.ย. ดอกหมด)</span>
-                                    <span data-lang="en" class="hidden">Peak Feb–Mar; April is off-season.</span>
-                                    <span data-lang="jp" class="hidden">見頃は2〜3月。4月は終了。</span>
-                                </td>
-                                <td>
-                                    <span data-lang="th">ฤดูหน้าให้วางเป็นไฮไลต์</span>
-                                    <span data-lang="en" class="hidden">Make it a highlight in next season.</span>
-                                    <span data-lang="jp" class="hidden">次の季節の目玉に。</span>
-                                </td>
-                            </tr>
-
-                            <!-- Kanagawa -->
-                            <tr>
-                                <td>Kanagawa</td>
-                                <td>Sagamike</td>
-                                <td>
-                                    <span data-lang="th">อยู่อินแลนด์ ไม่ได้ผ่านระหว่าง Izu→Kamakura</span>
-                                    <span data-lang="en" class="hidden">Inland; not on Izu→Kamakura route.</span>
-                                    <span data-lang="jp" class="hidden">内陸部で伊豆→鎌倉の動線外。</span>
-                                </td>
-                                <td>
-                                    <span data-lang="th">มีวันว่างค่อยแวะ</span>
-                                    <span data-lang="en" class="hidden">Add on a spare day.</span>
-                                    <span data-lang="jp" class="hidden">余裕日で追加。</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Kanagawa</td>
-                                <td>Miyagase</td>
-                                <td>
-                                    <span data-lang="th">เส้นเดียวกับ Sagamike เวลาไม่พอ</span>
-                                    <span data-lang="en" class="hidden">Same inland direction; time constraint.</span>
-                                    <span data-lang="jp" class="hidden">同方面で時間不足。</span>
-                                </td>
-                                <td>
-                                    <span data-lang="th">เหมาะเที่ยวแยกวันจากโยโกฮามะ</span>
-                                    <span data-lang="en" class="hidden">Pair with a separate Yokohama day.</span>
-                                    <span data-lang="jp" class="hidden">横浜とは別日に。</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Kanagawa</td>
-                                <td>Oyama Temple / Afuri Shrine</td>
-                                <td>
-                                    <span data-lang="th">ต้องขึ้นเคเบิลคาร์+เดินเขา ใช้เวลาเยอะ</span>
-                                    <span data-lang="en" class="hidden">Cable car + hike; time-consuming.</span>
-                                    <span data-lang="jp" class="hidden">ケーブルカー＋登山で時間が必要。</span>
-                                </td>
-                                <td>
-                                    <span data-lang="th">แนะนำฤดูใบไม้แดง</span>
-                                    <span data-lang="en" class="hidden">Best in autumn foliage.</span>
-                                    <span data-lang="jp" class="hidden">紅葉期が最適。</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Kanagawa (Kawasaki)</td>
-                                <td>Fujiko・F・Fujio Museum</td>
-                                <td>
-                                    <span data-lang="th">ต้องจองรอบล่วงหน้า เวลาอาจไม่ลงตัว</span>
-                                    <span data-lang="en" class="hidden">Advance timed reservation required.</span>
-                                    <span data-lang="jp" class="hidden">日時指定の事前予約が必要。</span>
-                                </td>
-                                <td>
-                                    <span data-lang="th">ถ้าได้รอบจอง สลับกับ Enoshima ได้</span>
-                                    <span data-lang="en" class="hidden">If reserved, swap with Enoshima.</span>
-                                    <span data-lang="jp" class="hidden">予約確保なら江の島と入替え可。</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Kanagawa (Enoshima)</td>
-                                <td>Sea Candle / Samuel Cocking Garden</td>
-                                <td>
-                                    <span data-lang="th">เลือกถ้ำ Iwaya เป็นหลัก เวลาจำกัด</span>
-                                    <span data-lang="en" class="hidden">Prioritized Iwaya Cave; time-limited.</span>
-                                    <span data-lang="jp" class="hidden">岩屋洞窟を優先、時間の都合。</span>
-                                </td>
-                                <td>
-                                    <span data-lang="th">ถ้าชอบหอชมวิว สลับกับถ้ำได้</span>
-                                    <span data-lang="en" class="hidden">Swap if you prefer the observatory.</span>
-                                    <span data-lang="jp" class="hidden">展望重視なら入替え可。</span>
-                                </td>
-                            </tr>
-
-                            <!-- Yokohama -->
-                            <tr>
-                                <td>Yokohama</td>
-                                <td>GUNDAM FACTORY Yokohama</td>
-                                <td>
-                                    <span data-lang="th">ปิดถาวรแล้ว (31 มี.ค. 2024)</span>
-                                    <span data-lang="en" class="hidden">Closed permanently (Mar 31, 2024).</span>
-                                    <span data-lang="jp" class="hidden">2024年3月31日で終了。</span>
-                                </td>
-                                <td>
-                                    <span data-lang="th">ตรวจสอบอีเวนต์กันดั้มอื่น ๆ แทน</span>
-                                    <span data-lang="en" class="hidden">Check other Gundam events/statues.</span>
-                                    <span data-lang="jp" class="hidden">他のガンダム催事を確認。</span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
+        <div>
+          <label class="mini" data-lang="th">น้ำมัน (JPY)</label>
+          <label class="mini hidden" data-lang="en">Fuel (JPY)</label>
+          <label class="mini hidden" data-lang="jp">ガソリン（円）</label>
+          <input id="fuel" class="input" type="number" step="1" value="0">
         </div>
-    </main>
+        <div>
+          <label class="mini" data-lang="th">ทางด่วน (JPY)</label>
+          <label class="mini hidden" data-lang="en">Tolls (JPY)</label>
+          <label class="mini hidden" data-lang="jp">高速代（円）</label>
+          <input id="toll" class="input" type="number" step="1" value="0">
+        </div>
+        <div>
+          <label class="mini" data-lang="th">ที่จอด/อื่น ๆ (JPY)</label>
+          <label class="mini hidden" data-lang="en">Parking/Other (JPY)</label>
+          <label class="mini hidden" data-lang="jp">駐車/その他（円）</label>
+          <input id="misc" class="input" type="number" step="1" value="0">
+        </div>
+      </div>
 
-    <script>
-        // Language toggle (th / en / jp)
-        const LANG_KEY = 'tripplan_lang';
-        function setLang(lang) {
-            document.querySelectorAll('[data-lang]').forEach(el => {
-                el.classList.toggle('hidden', el.getAttribute('data-lang') !== lang);
-            });
-            localStorage.setItem(LANG_KEY, lang);
-        }
-        // Init language from storage or default 'th'
-        (function () {
-            const saved = localStorage.getItem(LANG_KEY) || 'th';
-            setLang(saved);
-        })();
-    </script>
+      <div class="toolbox">
+        <button class="btn" onclick="resetInclusions()">
+          <span data-lang="th">รีเซ็ตการนับรวม</span>
+          <span data-lang="en" class="hidden">Reset Inclusions</span>
+          <span data-lang="jp" class="hidden">合算をリセット</span>
+        </button>
+        <button class="btn" onclick="window.print()">
+          <span data-lang="th">พิมพ์/บันทึก PDF</span>
+          <span data-lang="en" class="hidden">Print/Save PDF</span>
+          <span data-lang="jp" class="hidden">印刷/保存</span>
+        </button>
+      </div>
 
+      <div class="totals" id="grandTotals">
+        <span class="pill" id="sumDaysJPY">Days: ¥0</span>
+        <span class="pill" id="sumDaysTHB">Days: ฿0.00</span>
+        <span class="pill" id="travelJPY"><span data-lang="th">ค่าเดินทาง</span><span data-lang="en" class="hidden">Travel</span><span data-lang="jp" class="hidden">移動費</span>: ¥0</span>
+        <span class="pill" id="travelTHB">฿0.00</span>
+        <span class="pill" id="tripJPY"><strong><span data-lang="th">รวมทั้งทริป</span><span data-lang="en" class="hidden">Trip Total</span><span data-lang="jp" class="hidden">合計</span>:</strong> ¥0</span>
+        <span class="pill" id="tripTHB"><strong>฿0.00</strong></span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <!-- ===== Day 1 ===== -->
+    <section class="day" data-day="1">
+      <div class="day-head">
+        <div>
+          <div data-lang="th">Day 1 — โตเกียว → คาวากุจิโกะ (Yamanashi)</div>
+          <div data-lang="en" class="hidden">Day 1 — Tokyo → Kawaguchiko (Yamanashi)</div>
+          <div data-lang="jp" class="hidden">1日目 — 東京 → 河口湖（山梨）</div>
+        </div>
+        <div class="meta">
+          <span class="chip" data-lang="th">ขับ ~2 ชม.</span>
+          <span class="chip hidden" data-lang="en">Drive ~2h</span>
+          <span class="chip hidden" data-lang="jp">車で約2時間</span>
+          <span class="chip" data-lang="th">ซากุระ Chureito</span>
+          <span class="chip hidden" data-lang="en">Chureito sakura</span>
+          <span class="chip hidden" data-lang="jp">忠霊塔の桜</span>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th><span data-lang="th">เวลา</span><span data-lang="en" class="hidden">Time</span><span data-lang="jp" class="hidden">時間</span></th>
+              <th><span data-lang="th">สถานที่</span><span data-lang="en" class="hidden">Place</span><span data-lang="jp" class="hidden">場所</span></th>
+              <th><span data-lang="th">ค่าเข้า</span><span data-lang="en" class="hidden">Fee</span><span data-lang="jp" class="hidden">料金</span></th>
+              <th><span data-lang="th">เวลาเปิด–ปิด</span><span data-lang="en" class="hidden">Opening Hours</span><span data-lang="jp" class="hidden">営業時間</span></th>
+              <th><span data-lang="th">หมายเหตุ</span><span data-lang="en" class="hidden">Notes</span><span data-lang="jp" class="hidden">備考</span></th>
+              <th><span data-lang="th">นับรวม</span><span data-lang="en" class="hidden">Include</span><span data-lang="jp" class="hidden">合算</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-fee-jpy="0" data-default-include="0">
+              <td>10:00</td>
+              <td>Chureito Pagoda（忠霊塔 / 新倉山浅間公園）</td>
+              <td class="fee-free"><span data-lang="th">ฟรี</span><span data-lang="en" class="hidden">Free</span><span data-lang="jp" class="hidden">無料</span></td>
+              <td>8:30–17:00</td>
+              <td class="note"><span data-lang="th">วิวฟูจิ + ซากุระ</span><span data-lang="en" class="hidden">Fuji + cherry blossoms</span><span data-lang="jp" class="hidden">富士山と桜</span></td>
+              <td><input type="checkbox" class="inc" disabled></td>
+            </tr>
+            <tr data-fee-jpy="0" data-default-include="0">
+              <td>11:30</td>
+              <td>Oshino Hakkai（忍野八海）</td>
+              <td class="fee-free">Free</td>
+              <td><span data-lang="th">ตลอดวัน</span><span data-lang="en" class="hidden">24h</span><span data-lang="jp" class="hidden">24時間</span></td>
+              <td class="note"><span data-lang="th">หมู่บ้านน้ำศักดิ์สิทธิ์</span><span data-lang="en" class="hidden">Sacred spring village</span><span data-lang="jp" class="hidden">名水の里</span></td>
+              <td><input type="checkbox" class="inc" disabled></td>
+            </tr>
+            <tr data-fee-jpy="2500" data-default-include="1">
+              <td>13:00</td>
+              <td><span data-lang="th">ปั่นจักรยานรอบ Kawaguchiko</span><span data-lang="en" class="hidden">Cycling around Kawaguchiko</span><span data-lang="jp" class="hidden">河口湖サイクリング</span></td>
+              <td>¥1,500–3,000</td>
+              <td>~9:00–17:00</td>
+              <td class="note"><span data-lang="th">วน ~18–20 กม. ผ่าน Oishi Park, Ohashi, Ubuyagasaki</span><span data-lang="en" class="hidden">18–20 km loop (Oishi, Ohashi, Ubuyagasaki)</span><span data-lang="jp" class="hidden">約18〜20km周遊</span></td>
+              <td><input type="checkbox" class="inc" checked></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="day-total" id="dayTotal-1">Day 1: ¥0 / ฿0.00</div>
+    </section>
+
+    <!-- ===== Day 2 ===== -->
+    <section class="day" data-day="2">
+      <div class="day-head">
+        <div>
+          <div data-lang="th">Day 2 — Fuji Five Lakes</div>
+          <div data-lang="en" class="hidden">Day 2 — Fuji Five Lakes</div>
+          <div data-lang="jp" class="hidden">2日目 — 富士五湖</div>
+        </div>
+        <div class="meta">
+          <span class="chip" data-lang="th">ขับวนรอบทะเลสาบ</span>
+          <span class="chip hidden" data-lang="en">Lake loop drive</span>
+          <span class="chip hidden" data-lang="jp">湖巡りドライブ</span>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+          <tr>
+            <th><span data-lang="th">เวลา</span><span data-lang="en" class="hidden">Time</span><span data-lang="jp" class="hidden">時間</span></th>
+            <th><span data-lang="th">สถานที่</span><span data-lang="en" class="hidden">Place</span><span data-lang="jp" class="hidden">場所</span></th>
+            <th><span data-lang="th">ค่าเข้า</span><span data-lang="en" class="hidden">Fee</span><span data-lang="jp" class="hidden">料金</span></th>
+            <th><span data-lang="th">เวลาเปิด–ปิด</span><span data-lang="en" class="hidden">Hours</span><span data-lang="jp" class="hidden">営業時間</span></th>
+            <th><span data-lang="th">หมายเหตุ</span><span data-lang="en" class="hidden">Notes</span><span data-lang="jp" class="hidden">備考</span></th>
+            <th><span data-lang="th">นับรวม</span><span data-lang="en" class="hidden">Include</span><span data-lang="jp" class="hidden">合算</span></th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr data-fee-jpy="0" data-default-include="0">
+              <td>08:30</td>
+              <td>Lake Yamanakako（山中湖）</td>
+              <td class="fee-free">Free</td>
+              <td>24h</td>
+              <td class="note"><span data-lang="th">เลนจักรยานเฉพาะ</span><span data-lang="en" class="hidden">Dedicated cycling lane</span><span data-lang="jp" class="hidden">サイクリング道</span></td>
+              <td><input type="checkbox" class="inc" disabled></td>
+            </tr>
+            <tr data-fee-jpy="0" data-default-include="0">
+              <td>10:30</td>
+              <td>Lake Shojiko（精進湖）</td>
+              <td class="fee-free">Free</td>
+              <td>24h</td>
+              <td class="note"><span data-lang="th">เงียบสงบ</span><span data-lang="en" class="hidden">Quiet</span><span data-lang="jp" class="hidden">静か</span></td>
+              <td><input type="checkbox" class="inc" disabled></td>
+            </tr>
+            <tr data-fee-jpy="0" data-default-include="0">
+              <td>12:00</td>
+              <td>Lake Motosu（本栖湖）</td>
+              <td class="fee-free">Free</td>
+              <td>24h</td>
+              <td class="note"><span data-lang="th">วิวฟูจิบนธนบัตร ¥1,000</span><span data-lang="en" class="hidden">Mt. Fuji on ¥1,000 note</span><span data-lang="jp" class="hidden">千円札の富士</span></td>
+              <td><input type="checkbox" class="inc" disabled></td>
+            </tr>
+            <tr data-fee-jpy="350" data-default-include="1">
+              <td>14:00</td>
+              <td>Narusawa Ice Cave（鳴沢氷穴）</td>
+              <td>~¥350</td>
+              <td>9:00–17:00</td>
+              <td class="note"><span data-lang="th">ถ้ำน้ำแข็ง</span><span data-lang="en" class="hidden">Ice cave</span><span data-lang="jp" class="hidden">氷の洞窟</span></td>
+              <td><input type="checkbox" class="inc" checked></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="day-total" id="dayTotal-2">Day 2: ¥0 / ฿0.00</div>
+    </section>
+
+    <!-- ===== Day 3 ===== -->
+    <section class="day" data-day="3">
+      <div class="day-head">
+        <div>
+          <div data-lang="th">Day 3 — Fujinomiya → Atami (Shizuoka)</div>
+          <div data-lang="en" class="hidden">Day 3 — Fujinomiya → Atami (Shizuoka)</div>
+          <div data-lang="jp" class="hidden">3日目 — 富士宮 → 熱海（静岡）</div>
+        </div>
+        <div class="meta">
+          <span class="chip" data-lang="th">ไร่ชา + สะพานชมฟูจิ</span>
+          <span class="chip hidden" data-lang="en">Tea fields + Fuji bridge</span>
+          <span class="chip hidden" data-lang="jp">茶畑＋富士見橋</span>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+          <tr>
+            <th><span data-lang="th">เวลา</span><span data-lang="en" class="hidden">Time</span><span data-lang="jp" class="hidden">時間</span></th>
+            <th><span data-lang="th">สถานที่</span><span data-lang="en" class="hidden">Place</span><span data-lang="jp" class="hidden">場所</span></th>
+            <th><span data-lang="th">ค่าเข้า</span><span data-lang="en" class="hidden">Fee</span><span data-lang="jp" class="hidden">料金</span></th>
+            <th><span data-lang="th">เวลาเปิด–ปิด</span><span data-lang="en" class="hidden">Hours</span><span data-lang="jp" class="hidden">営業時間</span></th>
+            <th><span data-lang="th">หมายเหตุ</span><span data-lang="en" class="hidden">Notes</span><span data-lang="jp" class="hidden">備考</span></th>
+            <th><span data-lang="th">นับรวม</span><span data-lang="en" class="hidden">Include</span><span data-lang="jp" class="hidden">合算</span></th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr data-fee-jpy="0" data-default-include="0">
+              <td>09:30</td>
+              <td>Obuchi Sasaba（大淵笹場）</td>
+              <td class="fee-free">Free</td><td>24h</td>
+              <td class="note"><span data-lang="th">ไร่ชา + วิวฟูจิ</span><span data-lang="en" class="hidden">Tea fields + Fuji view</span><span data-lang="jp" class="hidden">茶畑と富士山</span></td>
+              <td><input type="checkbox" class="inc" disabled></td>
+            </tr>
+            <tr data-fee-jpy="0" data-default-include="0">
+              <td>11:00</td>
+              <td>Fujisan Yumeno Ohashi（富士山夢の大橋）</td>
+              <td class="fee-free">Free</td><td>24h</td>
+              <td class="note"><span data-lang="th">สะพานวิวฟูจิ</span><span data-lang="en" class="hidden">Fuji view bridge</span><span data-lang="jp" class="hidden">富士見橋</span></td>
+              <td><input type="checkbox" class="inc" disabled></td>
+            </tr>
+            <tr data-fee-jpy="0" data-default-include="0">
+              <td>13:00</td>
+              <td>Fujisan Hongu Sengen Taisha（富士山本宮浅間大社）</td>
+              <td class="fee-free">Free</td><td>9:00–17:00</td>
+              <td class="note"><span data-lang="th">ศาลเจ้าหลักของฟูจิ</span><span data-lang="en" class="hidden">Main shrine of Mt. Fuji</span><span data-lang="jp" class="hidden">総本宮</span></td>
+              <td><input type="checkbox" class="inc" disabled></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="day-total" id="dayTotal-3">Day 3: ¥0 / ฿0.00</div>
+    </section>
+
+    <!-- ===== Day 4 ===== -->
+    <section class="day" data-day="4">
+      <div class="day-head">
+        <div>
+          <div data-lang="th">Day 4 — Atami (Art, Onsen & Fireworks)</div>
+          <div data-lang="en" class="hidden">Day 4 — Atami (Art, Onsen & Fireworks)</div>
+          <div data-lang="jp" class="hidden">4日目 — 熱海（美術・温泉・花火）</div>
+        </div>
+        <div class="meta">
+          <span class="chip" data-lang="th">พิพิธภัณฑ์ + ปราสาท</span>
+          <span class="chip hidden" data-lang="en">Museum + Castle</span>
+          <span class="chip hidden" data-lang="jp">美術館＋城</span>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th><span data-lang="th">เวลา</span><span data-lang="en" class="hidden">Time</span><span data-lang="jp" class="hidden">時間</span></th>
+              <th><span data-lang="th">สถานที่</span><span data-lang="en" class="hidden">Place</span><span data-lang="jp" class="hidden">場所</span></th>
+              <th><span data-lang="th">ค่าเข้า</span><span data-lang="en" class="hidden">Fee</span><span data-lang="jp" class="hidden">料金</span></th>
+              <th><span data-lang="th">เวลาเปิด–ปิด</span><span data-lang="en" class="hidden">Hours</span><span data-lang="jp" class="hidden">営業時間</span></th>
+              <th><span data-lang="th">หมายเหตุ</span><span data-lang="en" class="hidden">Notes</span><span data-lang="jp" class="hidden">備考</span></th>
+              <th><span data-lang="th">นับรวม</span><span data-lang="en" class="hidden">Include</span><span data-lang="jp" class="hidden">合算</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-fee-jpy="1000" data-default-include="1">
+              <td>09:00</td>
+              <td>Atami Castle（熱海城）</td>
+              <td>~¥1,000</td><td>9:00–17:00</td>
+              <td class="note"><span data-lang="th">จุดชมวิวทะเล</span><span data-lang="en" class="hidden">Sea view</span><span data-lang="jp" class="hidden">海の展望</span></td>
+              <td><input type="checkbox" class="inc" checked></td>
+            </tr>
+            <tr data-fee-jpy="1600" data-default-include="1">
+              <td>11:00</td>
+              <td>MOA Museum of Art（MOA美術館）</td>
+              <td>~¥1,600</td><td>9:30–16:30</td>
+              <td class="note"><span data-lang="th">วิวอ่าวสวย</span><span data-lang="en" class="hidden">Bay view</span><span data-lang="jp" class="hidden">相模湾の眺望</span></td>
+              <td><input type="checkbox" class="inc" checked></td>
+            </tr>
+            <tr data-fee-jpy="0" data-default-include="0">
+              <td>14:00</td>
+              <td>Kinomiya Shrine（来宮神社）</td>
+              <td class="fee-free">Free</td><td>24h</td>
+              <td class="note"><span data-lang="th">ต้นไม้พันปี</span><span data-lang="en" class="hidden">Giant sacred tree</span><span data-lang="jp" class="hidden">ご神木</span></td>
+              <td><input type="checkbox" class="inc" disabled></td>
+            </tr>
+            <tr data-fee-jpy="0" data-default-include="0">
+              <td>15:30</td>
+              <td>Atami Sun Beach</td>
+              <td class="fee-free">Free</td><td>24h</td>
+              <td class="note"><span data-lang="th">เดินเล่นเย็น ๆ</span><span data-lang="en" class="hidden">Evening stroll</span><span data-lang="jp" class="hidden">夕方散策</span></td>
+              <td><input type="checkbox" class="inc" disabled></td>
+            </tr>
+            <tr data-fee-jpy="0" data-default-include="0">
+              <td>20:20</td>
+              <td><span data-lang="th">Atami Fireworks (อีเวนต์)</span><span data-lang="en" class="hidden">Atami Fireworks (event)</span><span data-lang="jp" class="hidden">熱海海上花火大会</span></td>
+              <td class="fee-free">Free</td><td>20:20–20:40</td>
+              <td class="note fee-warn"><span data-lang="th">* ตรวจสอบตารางจริง</span><span data-lang="en" class="hidden">* Check actual schedule</span><span data-lang="jp" class="hidden">※開催日要確認</span></td>
+              <td><input type="checkbox" class="inc" disabled></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="day-total" id="dayTotal-4">Day 4: ¥0 / ฿0.00</div>
+    </section>
+
+    <!-- ===== Day 5 ===== -->
+    <section class="day" data-day="5">
+      <div class="day-head">
+        <div>
+          <div data-lang="th">Day 5 — North Izu (Mishima・Shuzenji)</div>
+          <div data-lang="en" class="hidden">Day 5 — North Izu (Mishima・Shuzenji)</div>
+          <div data-lang="jp" class="hidden">5日目 — 北伊豆（三島・修善寺）</div>
+        </div>
+        <div class="meta"><span class="chip">Skywalk + Ropeway</span></div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th><span data-lang="th">เวลา</span><span data-lang="en" class="hidden">Time</span><span data-lang="jp" class="hidden">時間</span></th>
+              <th><span data-lang="th">สถานที่</span><span data-lang="en" class="hidden">Place</span><span data-lang="jp" class="hidden">場所</span></th>
+              <th><span data-lang="th">ค่าเข้า</span><span data-lang="en" class="hidden">Fee</span><span data-lang="jp" class="hidden">料金</span></th>
+              <th><span data-lang="th">เวลาเปิด–ปิด</span><span data-lang="en" class="hidden">Hours</span><span data-lang="jp" class="hidden">営業時間</span></th>
+              <th><span data-lang="th">หมายเหตุ</span><span data-lang="en" class="hidden">Notes</span><span data-lang="jp" class="hidden">備考</span></th>
+              <th><span data-lang="th">นับรวม</span><span data-lang="en" class="hidden">Include</span><span data-lang="jp" class="hidden">合算</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-fee-jpy="1100" data-default-include="1">
+              <td>09:00</td>
+              <td>Mishima Skywalk（三島スカイウォーク）</td>
+              <td>~¥1,100</td><td>9:00–17:00</td>
+              <td class="note"><span data-lang="th">สะพานแขวนยาวสุด</span><span data-lang="en" class="hidden">Longest suspension bridge</span><span data-lang="jp" class="hidden">日本最長の吊り橋</span></td>
+              <td><input type="checkbox" class="inc" checked></td>
+            </tr>
+            <tr data-fee-jpy="2000" data-default-include="1">
+              <td>11:00</td>
+              <td>Izu Panorama Park Ropeway（伊豆パノラマパーク）</td>
+              <td>~¥2,000</td><td>9:00–17:00</td>
+              <td class="note"><span data-lang="th">Fuji Terrace + footbath café</span><span data-lang="en" class="hidden">Fuji Terrace + footbath café</span><span data-lang="jp" class="hidden">富士テラス＆足湯カフェ</span></td>
+              <td><input type="checkbox" class="inc" checked></td>
+            </tr>
+            <tr data-fee-jpy="0" data-default-include="0">
+              <td>14:00</td>
+              <td>Shuzenji Temple（修善寺）</td>
+              <td class="fee-free">Free</td><td>9:00–16:00</td>
+              <td class="note"><span data-lang="th">วัดเก่าแก่ + ป่าไผ่</span><span data-lang="en" class="hidden">Temple & bamboo grove</span><span data-lang="jp" class="hidden">古刹・竹林</span></td>
+              <td><input type="checkbox" class="inc" disabled></td>
+            </tr>
+            <tr data-fee-jpy="400" data-default-include="1">
+              <td>15:30</td>
+              <td>Rakuju-en Garden（楽寿園）</td>
+              <td>~¥400</td><td>9:00–17:00</td>
+              <td class="note"><span data-lang="th">สวนญี่ปุ่นใน Mishima</span><span data-lang="en" class="hidden">Japanese garden in Mishima</span><span data-lang="jp" class="hidden">日本庭園</span></td>
+              <td><input type="checkbox" class="inc" checked></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="day-total" id="dayTotal-5">Day 5: ¥0 / ฿0.00</div>
+    </section>
+
+    <!-- ===== Day 6 ===== -->
+    <section class="day" data-day="6">
+      <div class="day-head">
+        <div>
+          <div data-lang="th">Day 6 — South & West Izu (Jogasaki・Dogashima)</div>
+          <div data-lang="en" class="hidden">Day 6 — South & West Izu (Jogasaki・Dogashima)</div>
+          <div data-lang="jp" class="hidden">6日目 — 南西伊豆（城ヶ崎・堂ヶ島）</div>
+        </div>
+        <div class="meta"><span class="chip" data-lang="th">ชายฝั่ง + น้ำตก + เรือ</span><span class="chip hidden" data-lang="en">Coast + Waterfalls + Boat</span><span class="chip hidden" data-lang="jp">海岸＋滝＋遊覧船</span></div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th><span data-lang="th">เวลา</span><span data-lang="en" class="hidden">Time</span><span data-lang="jp" class="hidden">時間</span></th>
+              <th><span data-lang="th">สถานที่</span><span data-lang="en" class="hidden">Place</span><span data-lang="jp" class="hidden">場所</span></th>
+              <th><span data-lang="th">ค่าเข้า</span><span data-lang="en" class="hidden">Fee</span><span data-lang="jp" class="hidden">料金</span></th>
+              <th><span data-lang="th">เวลาเปิด–ปิด</span><span data-lang="en" class="hidden">Hours</span><span data-lang="jp" class="hidden">営業時間</span></th>
+              <th><span data-lang="th">หมายเหตุ</span><span data-lang="en" class="hidden">Notes</span><span data-lang="jp" class="hidden">備考</span></th>
+              <th><span data-lang="th">นับรวม</span><span data-lang="en" class="hidden">Include</span><span data-lang="jp" class="hidden">合算</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-fee-jpy="0" data-default-include="0">
+              <td>09:00</td>
+              <td>Jogasaki Coast & Kadowaki Bridge（城ヶ崎海岸・門脇吊橋）</td>
+              <td class="fee-free">Free</td><td>24h</td>
+              <td class="note"><span data-lang="th">หน้าผาลาวา + สะพานแขวน</span><span data-lang="en" class="hidden">Lava cliffs & suspension bridge</span><span data-lang="jp" class="hidden">溶岩海岸・吊橋</span></td>
+              <td><input type="checkbox" class="inc" disabled></td>
+            </tr>
+            <tr data-fee-jpy="0" data-default-include="0">
+              <td>10:30</td>
+              <td>Shirahama Shrine（白浜神社）</td>
+              <td class="fee-free">Free</td><td>24h</td>
+              <td class="note"><span data-lang="th">ศาลเจ้าริมทะเล</span><span data-lang="en" class="hidden">Seaside shrine</span><span data-lang="jp" class="hidden">海辺の神社</span></td>
+              <td><input type="checkbox" class="inc" disabled></td>
+            </tr>
+            <tr data-fee-jpy="300" data-default-include="1">
+              <td>12:00</td>
+              <td>Kawazu Nanadaru Waterfalls（河津七滝）</td>
+              <td>~¥300</td><td>24h</td>
+              <td class="note"><span data-lang="th">บางเส้นทางเก็บค่าเข้า</span><span data-lang="en" class="hidden">Some trails charge</span><span data-lang="jp" class="hidden">一部ルート有料</span></td>
+              <td><input type="checkbox" class="inc" checked></td>
+            </tr>
+            <tr data-fee-jpy="0" data-default-include="0">
+              <td>14:00</td>
+              <td>Kanazawa Waterfalls</td>
+              <td class="fee-free">Free</td><td>24h</td>
+              <td class="note"><span data-lang="th">เงียบสงบ</span><span data-lang="en" class="hidden">Quiet</span><span data-lang="jp" class="hidden">静か</span></td>
+              <td><input type="checkbox" class="inc" disabled></td>
+            </tr>
+            <tr data-fee-jpy="1300" data-default-include="1">
+              <td>15:30</td>
+              <td>Dogashima Marine Boat（堂ヶ島洞くつめぐり遊覧船）</td>
+              <td>~¥1,300</td><td>9:00–16:00</td>
+              <td class="note"><span data-lang="th">ล่องเรือชมถ้ำทะเล</span><span data-lang="en" class="hidden">Sea cave cruise</span><span data-lang="jp" class="hidden">青の洞窟クルーズ</span></td>
+              <td><input type="checkbox" class="inc" checked></td>
+            </tr>
+            <tr data-fee-jpy="0" data-default-include="0">
+              <td>17:00</td>
+              <td>Koganezaki Park（黄金崎公園）</td>
+              <td class="fee-free">Free</td><td>24h</td>
+              <td class="note"><span data-lang="th">จุดชมพระอาทิตย์ตก</span><span data-lang="en" class="hidden">Sunset spot</span><span data-lang="jp" class="hidden">夕日の名所</span></td>
+              <td><input type="checkbox" class="inc" disabled></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="day-total" id="dayTotal-6">Day 6: ¥0 / ฿0.00</div>
+    </section>
+
+    <!-- ===== Day 7 ===== -->
+    <section class="day" data-day="7">
+      <div class="day-head">
+        <div>
+          <div data-lang="th">Day 7 — Kanagawa & Yokohama → Tokyo</div>
+          <div data-lang="en" class="hidden">Day 7 — Kanagawa & Yokohama → Tokyo</div>
+          <div data-lang="jp" class="hidden">7日目 — 神奈川・横浜 → 東京</div>
+        </div>
+        <div class="meta"><span class="chip" data-lang="th">เมืองเก่า & เมืองท่า</span><span class="chip hidden" data-lang="en">Historic & Port city</span><span class="chip hidden" data-lang="jp">古都＆港町</span></div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th><span data-lang="th">เวลา</span><span data-lang="en" class="hidden">Time</span><span data-lang="jp" class="hidden">時間</span></th>
+              <th><span data-lang="th">สถานที่</span><span data-lang="en" class="hidden">Place</span><span data-lang="jp" class="hidden">場所</span></th>
+              <th><span data-lang="th">ค่าเข้า</span><span data-lang="en" class="hidden">Fee</span><span data-lang="jp" class="hidden">料金</span></th>
+              <th><span data-lang="th">เวลาเปิด–ปิด</span><span data-lang="en" class="hidden">Hours</span><span data-lang="jp" class="hidden">営業時間</span></th>
+              <th><span data-lang="th">หมายเหตุ</span><span data-lang="en" class="hidden">Notes</span><span data-lang="jp" class="hidden">備考</span></th>
+              <th><span data-lang="th">นับรวม</span><span data-lang="en" class="hidden">Include</span><span data-lang="jp" class="hidden">合算</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-fee-jpy="500" data-default-include="1">
+              <td>09:00</td>
+              <td>Odawara Castle（小田原城）</td>
+              <td>~¥500</td><td>9:00–17:00</td>
+              <td class="note"><span data-lang="th">ปราสาทประวัติศาสตร์</span><span data-lang="en" class="hidden">Historic castle</span><span data-lang="jp" class="hidden">歴史的城</span></td>
+              <td><input type="checkbox" class="inc" checked></td>
+            </tr>
+            <tr data-fee-jpy="300" data-default-include="1">
+              <td>11:00</td>
+              <td>Kōtoku-in（高徳院／鎌倉大仏）</td>
+              <td>~¥300</td><td>8:00–17:00</td>
+              <td class="note"><span data-lang="th">พระใหญ่แห่งคามาคุระ</span><span data-lang="en" class="hidden">Great Buddha</span><span data-lang="jp" class="hidden">鎌倉大仏</span></td>
+              <td><input type="checkbox" class="inc" checked></td>
+            </tr>
+            <tr data-fee-jpy="400" data-default-include="1">
+              <td>12:00</td>
+              <td>Hase-dera（長谷寺）</td>
+              <td>~¥400</td><td>8:00–17:00</td>
+              <td class="note"><span data-lang="th">วัดริมเขา วิวทะเล</span><span data-lang="en" class="hidden">Hillside temple, sea view</span><span data-lang="jp" class="hidden">海を望む古刹</span></td>
+              <td><input type="checkbox" class="inc" checked></td>
+            </tr>
+            <tr data-fee-jpy="500" data-default-include="1">
+              <td>14:00</td>
+              <td>Enoshima Iwaya Cave（江の島岩屋）</td>
+              <td>~¥500</td><td>9:00–17:00</td>
+              <td class="note"><span data-lang="th">ถ้ำริมทะเล</span><span data-lang="en" class="hidden">Sea cave</span><span data-lang="jp" class="hidden">海食洞窟</span></td>
+              <td><input type="checkbox" class="inc" checked></td>
+            </tr>
+            <tr data-fee-jpy="1000" data-default-include="0">
+              <td>17:00</td>
+              <td>Yokohama (optional) — Minato Mirai / Ramen Museum</td>
+              <td>~¥380–1,650</td><td>〜21:00</td>
+              <td class="note fee-warn"><span data-lang="th">ออปชัน เลือกนับรวมได้</span><span data-lang="en" class="hidden">Optional; include if visited</span><span data-lang="jp" class="hidden">任意／訪問時のみ合算</span></td>
+              <td><input type="checkbox" class="inc"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="day-total" id="dayTotal-7">Day 7: ¥0 / ฿0.00</div>
+    </section>
+
+    <!-- ===== NOT INCLUDED / REASONS ===== -->
+    <section class="day">
+      <div class="day-head">
+        <div>
+          <div data-lang="th"><strong>สถานที่ที่ไม่ได้ไป (พร้อมเหตุผล)</strong></div>
+          <div data-lang="en" class="hidden"><strong>Places Not Included (with Reasons)</strong></div>
+          <div data-lang="jp" class="hidden"><strong>今回のプランに未収載（理由付き）</strong></div>
+        </div>
+        <div class="meta">
+          <span class="chip" data-lang="th">ปรับสลับจุดได้ตามเวลา</span>
+          <span class="chip hidden" data-lang="en">Swap if time allows</span>
+          <span class="chip hidden" data-lang="jp">時間次第で入替可</span>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th><span data-lang="th">จังหวัด</span><span data-lang="en" class="hidden">Prefecture</span><span data-lang="jp" class="hidden">都道府県</span></th>
+              <th><span data-lang="th">สถานที่</span><span data-lang="en" class="hidden">Place</span><span data-lang="jp" class="hidden">場所</span></th>
+              <th><span data-lang="th">เหตุผล</span><span data-lang="en" class="hidden">Reason</span><span data-lang="jp" class="hidden">理由</span></th>
+              <th><span data-lang="th">คำแนะนำ</span><span data-lang="en" class="hidden">Tip</span><span data-lang="jp" class="hidden">提案</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Yamanashi</td>
+              <td>Saru-hashi Bridge</td>
+              <td><span data-lang="th">อยู่นอกเส้นหลัก อ้อม ~1–1.5 ชม.</span><span data-lang="en" class="hidden">Off the main route (~1–1.5h detour)</span><span data-lang="jp" class="hidden">主要ルート外（約1〜1.5時間の回り道）</span></td>
+              <td><span data-lang="th">มีเวลาเพิ่มค่อยสลับ</span><span data-lang="en" class="hidden">Add if extra time</span><span data-lang="jp" class="hidden">時間余裕で追加</span></td>
+            </tr>
+            <tr>
+              <td>Shizuoka (City)</td>
+              <td>Miho no Matsubara</td>
+              <td><span data-lang="th">ต้องอ้อมไปฝั่งเมืองชิซูโอกะ</span><span data-lang="en" class="hidden">Long detour to Shizuoka City</span><span data-lang="jp" class="hidden">静岡市側へ大きく迂回</span></td>
+              <td><span data-lang="th">ถ้าเน้นทะเล สลับกับ Koganezaki ได้</span><span data-lang="en" class="hidden">Swap with Koganezaki if you prefer coast</span><span data-lang="jp" class="hidden">海重視なら黄金崎と入替可</span></td>
+            </tr>
+            <tr>
+              <td>Fujinomiya</td>
+              <td>Shiraito Falls / Lake Tanuki</td>
+              <td><span data-lang="th">คนละทิศกับทางไป Atami</span><span data-lang="en" class="hidden">Opposite direction to Atami</span><span data-lang="jp" class="hidden">熱海方面と逆方向</span></td>
+              <td><span data-lang="th">เพิ่มได้ถ้าพักฝั่ง Fujinomiya</span><span data-lang="en" class="hidden">Add if staying near Fujinomiya</span><span data-lang="jp" class="hidden">富士宮泊なら追加可</span></td>
+            </tr>
+            <tr>
+              <td>Izu</td>
+              <td>Mt. Omuro（大室山）</td>
+              <td><span data-lang="th">ประสบการณ์คล้าย Panorama Park</span><span data-lang="en" class="hidden">Similar experience to Panorama Park</span><span data-lang="jp" class="hidden">パノラマパークと体験重複</span></td>
+              <td><span data-lang="th">ฟ้าใสค่อยสลับแทน Rakuju-en</span><span data-lang="en" class="hidden">On a clear day, swap with Rakuju-en</span><span data-lang="jp" class="hidden">快晴なら楽寿園と入替可</span></td>
+            </tr>
+            <tr>
+              <td>Izu</td>
+              <td>Wasabi Village</td>
+              <td><span data-lang="th">ลึกเข้าเขา ใช้เวลาขับเพิ่ม</span><span data-lang="en" class="hidden">Deep inland; extra drive</span><span data-lang="jp" class="hidden">山間部で移動時間増</span></td>
+              <td><span data-lang="th">เหมาะวันโฟกัส Kawazu</span><span data-lang="en" class="hidden">Best on a Kawazu-focused day</span><span data-lang="jp" class="hidden">河津中心日に最適</span></td>
+            </tr>
+            <tr>
+              <td>Izu (Kawazu)</td>
+              <td>Kawazu Sakura</td>
+              <td><span data-lang="th">พีค ก.พ.–มี.ค. (เม.ย. ดอกหมด)</span><span data-lang="en" class="hidden">Peak Feb–Mar (off-season in April)</span><span data-lang="jp" class="hidden">見頃2〜3月（4月は終了）</span></td>
+              <td><span data-lang="th">วางเป็นไฮไลต์ในฤดูหน้า</span><span data-lang="en" class="hidden">Make it a highlight next season</span><span data-lang="jp" class="hidden">次季の目玉に</span></td>
+            </tr>
+            <tr>
+              <td>Kanagawa</td>
+              <td>Oyama Temple / Afuri Shrine</td>
+              <td><span data-lang="th">ต้องขึ้นเคเบิลคาร์+เดินเขา ใช้เวลามาก</span><span data-lang="en" class="hidden">Cable car + hike; time intensive</span><span data-lang="jp" class="hidden">ケーブルカー＋登山で時間要</span></td>
+              <td><span data-lang="th">สวยสุดช่วงใบไม้แดง</span><span data-lang="en" class="hidden">Best in autumn foliage</span><span data-lang="jp" class="hidden">紅葉期が最適</span></td>
+            </tr>
+            <tr>
+              <td>Kawasaki</td>
+              <td>Fujiko・F・Fujio Museum</td>
+              <td><span data-lang="th">ต้องจองรอบล่วงหน้า</span><span data-lang="en" class="hidden">Advance timed booking</span><span data-lang="jp" class="hidden">日時指定の事前予約制</span></td>
+              <td><span data-lang="th">ได้รอบจองค่อยสลับกับ Enoshima</span><span data-lang="en" class="hidden">If booked, swap with Enoshima</span><span data-lang="jp" class="hidden">予約取れれば江の島と入替</span></td>
+            </tr>
+            <tr>
+              <td>Enoshima</td>
+              <td>Sea Candle / Samuel Cocking Garden</td>
+              <td><span data-lang="th">เลือกถ้ำ Iwaya เป็นหลัก เวลาไม่พอ</span><span data-lang="en" class="hidden">Prioritized Iwaya Cave; time limited</span><span data-lang="jp" class="hidden">岩屋洞窟を優先、時間都合</span></td>
+              <td><span data-lang="th">ชอบหอชมวิวค่อยสลับ</span><span data-lang="en" class="hidden">Swap if you prefer the observatory</span><span data-lang="jp" class="hidden">展望重視なら入替</span></td>
+            </tr>
+            <tr>
+              <td>Yokohama</td>
+              <td>GUNDAM FACTORY Yokohama</td>
+              <td><span data-lang="th">ปิดถาวร (31 มี.ค. 2024)</span><span data-lang="en" class="hidden">Closed permanently (Mar 31, 2024)</span><span data-lang="jp" class="hidden">2024年3月31日終了</span></td>
+              <td><span data-lang="th">ตรวจสอบอีเวนต์กันดั้มอื่น</span><span data-lang="en" class="hidden">Check other Gundam events</span><span data-lang="jp" class="hidden">他催事を確認</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<script>
+/* ---------- Language toggle ---------- */
+const LANG_KEY='tripplan_lang';
+function setLang(lang){
+  document.querySelectorAll('[data-lang]').forEach(el=>{
+    el.classList.toggle('hidden', el.getAttribute('data-lang')!==lang);
+  });
+  localStorage.setItem(LANG_KEY, lang);
+}
+(function(){
+  const saved=localStorage.getItem(LANG_KEY)||'th';
+  setLang(saved);
+})();
+
+/* ---------- Expense calculation ---------- */
+function yen(n){return Math.round(n);}
+function toTHB(jpy, fx){return (jpy*fx).toFixed(2);}
+function parseNum(v){const n=parseFloat(v);return isNaN(n)?0:n;}
+
+function recalc(){
+  const fx=parseNum(document.getElementById('fx').value);
+  let sumDays=0;
+
+  // per-day
+  document.querySelectorAll('section.day[data-day]').forEach(sec=>{
+    let daySum=0;
+    sec.querySelectorAll('tbody tr').forEach(row=>{
+      const fee=+row.getAttribute('data-fee-jpy');
+      const inc=row.querySelector('.inc');
+      if(inc && !inc.disabled && inc.checked){
+        daySum += fee;
+      }
+    });
+    sumDays += daySum;
+    const dayId=sec.getAttribute('data-day');
+    const bar=document.getElementById('dayTotal-'+dayId);
+    if(bar){
+      bar.textContent = `Day ${dayId}: ¥${yen(daySum).toLocaleString()} / ฿${toTHB(daySum, fx)}`;
+    }
+  });
+
+  const travel = parseNum(fuel.value)+parseNum(toll.value)+parseNum(misc.value);
+  const tripTotal = sumDays + travel;
+
+  document.getElementById('sumDaysJPY').textContent = `Days: ¥${yen(sumDays).toLocaleString()}`;
+  document.getElementById('sumDaysTHB').textContent = `Days: ฿${toTHB(sumDays, fx)}`;
+  document.getElementById('travelJPY').innerHTML = `${document.querySelector('#travelJPY [data-lang="th"]')?document.querySelector('#travelJPY [data-lang="th"]').outerHTML:""} ${document.querySelector('#travelJPY [data-lang="en"]')?document.querySelector('#travelJPY [data-lang="en"]').outerHTML:""} ${document.querySelector('#travelJPY [data-lang="jp"]')?document.querySelector('#travelJPY [data-lang="jp"]').outerHTML:""}`.trim() || '';
+  document.getElementById('travelJPY').textContent = `${document.querySelector('[data-lang].hidden')? '' : ''}`;
+  document.getElementById('travelJPY').textContent = `${document.querySelector('header [data-lang]:not(.hidden)')?.textContent?.includes('THB')?'':document.querySelector('header [data-lang]:not(.hidden)')?'ค่าเดินทาง':''}`;
+  // simpler labels:
+  document.getElementById('travelJPY').textContent = `${document.querySelector('[data-lang="th"]:not(.hidden)')?'ค่าเดินทาง':'Travel'}: ¥${yen(travel).toLocaleString()}`;
+  document.getElementById('travelTHB').textContent = `฿${toTHB(travel, fx)}`;
+  document.getElementById('tripJPY').innerHTML = `<strong>${document.querySelector('[data-lang="th"]:not(.hidden)')?'รวมทั้งทริป':(document.querySelector('[data-lang="jp"]:not(.hidden)')?'合計':'Trip Total')}</strong>: ¥${yen(tripTotal).toLocaleString()}`;
+  document.getElementById('tripTHB').innerHTML = `<strong>฿${toTHB(tripTotal, fx)}</strong>`;
+}
+
+function resetInclusions(){
+  document.querySelectorAll('tbody tr').forEach(row=>{
+    const inc=row.querySelector('.inc');
+    const def=row.getAttribute('data-default-include');
+    if(inc && !inc.disabled){
+      inc.checked = def==="1";
+    }
+  });
+  document.getElementById('fx').value = document.getElementById('fx').value || 0.25;
+  document.getElementById('fuel').value = 0;
+  document.getElementById('toll').value = 0;
+  document.getElementById('misc').value = 0;
+  recalc();
+}
+
+/* Bind events */
+document.addEventListener('change', e=>{
+  if(e.target.matches('.inc, #fx, #fuel, #toll, #misc')) recalc();
+});
+window.addEventListener('load', recalc);
+</script>
 </body>
-
 </html>
