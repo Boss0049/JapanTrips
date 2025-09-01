@@ -16,7 +16,7 @@
             --chip: #1b2447;
             --ok: #23d18b;
             --warn: #ffd166;
-            --header-height: 80px;
+            --header-height: 84px;
         }
 
         * {
@@ -34,7 +34,7 @@
         header {
             position: sticky;
             top: 0;
-            z-index: 10;
+            z-index: 20;
             backdrop-filter: saturate(140%) blur(8px);
             background: #0b1020cc;
             border-bottom: 1px solid #223
@@ -193,9 +193,9 @@
 
         thead th {
             position: sticky;
-            /* top: var(--header-height); */
+            top: calc(var(--header-height) + env(safe-area-inset-top, 0px));
             background: #0f1530f2;
-            z-index: 5
+            z-index: 10;
         }
 
         tbody tr:hover td {
@@ -330,6 +330,48 @@
                 min-width: 980px;
             }
         }
+
+        /* พับ-กางของแผงสรุป */
+        .panel.collapsible {
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .panel-summary {
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 14px;
+            background: #0e1631;
+            border: 1px solid #223;
+            border-radius: 14px;
+            font-weight: 700;
+        }
+
+        .panel-body {
+            padding: 12px;
+            border: 1px solid #223;
+            border-top: none;
+            border-radius: 0 0 14px 14px;
+            background: #0e1631;
+        }
+
+        .toggle-icon {
+            transition: transform .25s ease;
+        }
+
+        #expPanel[open] .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        /* มือถือ: เริ่มต้นให้พับไว้ และลด margin */
+        @media (max-width: 768px) {
+            .panel-summary {
+                padding: 12px;
+            }
+        }
     </style>
 </head>
 
@@ -337,8 +379,8 @@
 
     <header>
         <div class="wrap">
-            <h1 data-lang="th">แผนเที่ยว 7 วัน (8–15 เม.ย. 2026)</h1>
-            <h1 data-lang="en" class="hidden">7-Day Plan (Apr 8–15, 2026)</h1>
+            <h1 data-lang="th">แผนเที่ยว 7 วัน (8–15 เม.ย. 2026) — ขับรถเที่ยว</h1>
+            <h1 data-lang="en" class="hidden">7-Day Road Trip Plan (Apr 8–15, 2026)</h1>
             <h1 data-lang="jp" class="hidden">7日間ドライブ旅プラン（2026年4月8日〜15日）</h1>
 
             <div class="sub" data-lang="th">ตารางละเอียด: เวลา | สถานที่ | ค่าเข้า | เวลาเปิด–ปิด | หมายเหตุ | นับรวม
@@ -363,63 +405,69 @@
             </div>
 
             <!-- EXPENSE PANEL -->
-            <div class="panel" id="panel">
-                <h3 data-lang="th">สรุปค่าใช้จ่ายรวม</h3>
-                <h3 data-lang="en" class="hidden">Expense Summary</h3>
-                <h3 data-lang="jp" class="hidden">費用サマリー</h3>
+            <details id="expPanel" class="panel collapsible" open>
+                <summary class="panel-summary">
+                    <span data-lang="th">สรุปค่าใช้จ่ายรวม</span>
+                    <span data-lang="en" class="hidden">Expense Summary</span>
+                    <span data-lang="jp" class="hidden">費用サマリー</span>
+                    <span class="toggle-icon">▼</span>
+                </summary>
 
-                <div class="grid">
-                    <div>
-                        <label class="mini" data-lang="th">เรทแลกเปลี่ยน (THB / 1 JPY)</label>
-                        <label class="mini hidden" data-lang="en">FX Rate (THB per 1 JPY)</label>
-                        <label class="mini hidden" data-lang="jp">為替レート（1円あたりTHB）</label>
-                        <input id="fx" class="input" type="number" step="0.001" value="0.25">
+                <div class="panel-body">
+                    <div class="grid">
+                        <div>
+                            <label class="mini" data-lang="th">เรทแลกเปลี่ยน (THB / 1 JPY)</label>
+                            <label class="mini hidden" data-lang="en">FX Rate (THB per 1 JPY)</label>
+                            <label class="mini hidden" data-lang="jp">為替レート（1円あたりTHB）</label>
+                            <input id="fx" class="input" type="number" step="0.001" value="0.25">
+                        </div>
+                        <div>
+                            <label class="mini" data-lang="th">น้ำมัน (JPY)</label>
+                            <label class="mini hidden" data-lang="en">Fuel (JPY)</label>
+                            <label class="mini hidden" data-lang="jp">ガソリン（円）</label>
+                            <input id="fuel" class="input" type="number" step="1" value="0">
+                        </div>
+                        <div>
+                            <label class="mini" data-lang="th">ทางด่วน (JPY)</label>
+                            <label class="mini hidden" data-lang="en">Tolls (JPY)</label>
+                            <label class="mini hidden" data-lang="jp">高速代（円）</label>
+                            <input id="toll" class="input" type="number" step="1" value="0">
+                        </div>
+                        <div>
+                            <label class="mini" data-lang="th">ที่จอด/อื่น ๆ (JPY)</label>
+                            <label class="mini hidden" data-lang="en">Parking/Other (JPY)</label>
+                            <label class="mini hidden" data-lang="jp">駐車/その他（円）</label>
+                            <input id="misc" class="input" type="number" step="1" value="0">
+                        </div>
                     </div>
-                    <div>
-                        <label class="mini" data-lang="th">น้ำมัน (JPY)</label>
-                        <label class="mini hidden" data-lang="en">Fuel (JPY)</label>
-                        <label class="mini hidden" data-lang="jp">ガソリン（円）</label>
-                        <input id="fuel" class="input" type="number" step="1" value="0">
+
+                    <div class="toolbox">
+                        <button class="btn" onclick="resetInclusions()">
+                            <span data-lang="th">รีเซ็ตการนับรวม</span>
+                            <span data-lang="en" class="hidden">Reset Inclusions</span>
+                            <span data-lang="jp" class="hidden">合算をリセット</span>
+                        </button>
+                        <button class="btn" onclick="window.print()">
+                            <span data-lang="th">พิมพ์/บันทึก PDF</span>
+                            <span data-lang="en" class="hidden">Print/Save PDF</span>
+                            <span data-lang="jp" class="hidden">印刷/保存</span>
+                        </button>
                     </div>
-                    <div>
-                        <label class="mini" data-lang="th">ทางด่วน (JPY)</label>
-                        <label class="mini hidden" data-lang="en">Tolls (JPY)</label>
-                        <label class="mini hidden" data-lang="jp">高速代（円）</label>
-                        <input id="toll" class="input" type="number" step="1" value="0">
-                    </div>
-                    <div>
-                        <label class="mini" data-lang="th">ที่จอด/อื่น ๆ (JPY)</label>
-                        <label class="mini hidden" data-lang="en">Parking/Other (JPY)</label>
-                        <label class="mini hidden" data-lang="jp">駐車/その他（円）</label>
-                        <input id="misc" class="input" type="number" step="1" value="0">
+
+                    <div class="totals" id="grandTotals">
+                        <span class="pill" id="sumDaysJPY">Days: ¥0</span>
+                        <span class="pill" id="sumDaysTHB">Days: ฿0.00</span>
+                        <span class="pill" id="travelJPY"><span data-lang="th">ค่าเดินทาง</span><span data-lang="en"
+                                class="hidden">Travel</span><span data-lang="jp" class="hidden">移動費</span>: ¥0</span>
+                        <span class="pill" id="travelTHB">฿0.00</span>
+                        <span class="pill" id="tripJPY"><strong><span data-lang="th">รวมทั้งทริป</span><span
+                                    data-lang="en" class="hidden">Trip Total</span><span data-lang="jp"
+                                    class="hidden">合計</span>:</strong>
+                            ¥0</span>
+                        <span class="pill" id="tripTHB"><strong>฿0.00</strong></span>
                     </div>
                 </div>
-
-                <div class="toolbox">
-                    <button class="btn" onclick="resetInclusions()">
-                        <span data-lang="th">รีเซ็ตการนับรวม</span>
-                        <span data-lang="en" class="hidden">Reset Inclusions</span>
-                        <span data-lang="jp" class="hidden">合算をリセット</span>
-                    </button>
-                    <button class="btn" onclick="window.print()">
-                        <span data-lang="th">พิมพ์/บันทึก PDF</span>
-                        <span data-lang="en" class="hidden">Print/Save PDF</span>
-                        <span data-lang="jp" class="hidden">印刷/保存</span>
-                    </button>
-                </div>
-
-                <div class="totals" id="grandTotals">
-                    <span class="pill" id="sumDaysJPY">Days: ¥0</span>
-                    <span class="pill" id="sumDaysTHB">Days: ฿0.00</span>
-                    <span class="pill" id="travelJPY"><span data-lang="th">ค่าเดินทาง</span><span data-lang="en"
-                            class="hidden">Travel</span><span data-lang="jp" class="hidden">移動費</span>: ¥0</span>
-                    <span class="pill" id="travelTHB">฿0.00</span>
-                    <span class="pill" id="tripJPY"><strong><span data-lang="th">รวมทั้งทริป</span><span data-lang="en"
-                                class="hidden">Trip Total</span><span data-lang="jp" class="hidden">合計</span>:</strong>
-                        ¥0</span>
-                    <span class="pill" id="tripTHB"><strong>฿0.00</strong></span>
-                </div>
-            </div>
+            </details>
         </div>
     </header>
 
@@ -1003,9 +1051,9 @@
             <section class="day">
                 <div class="day-head">
                     <div>
-                        <div data-lang="th"><strong>สถานที่ที่ไม่ได้ไป</strong></div>
-                        <div data-lang="en" class="hidden"><strong>Places Not Included</strong></div>
-                        <div data-lang="jp" class="hidden"><strong>今回のプランに未収載</strong></div>
+                        <div data-lang="th"><strong>สถานที่ที่ไม่ได้ไป (พร้อมเหตุผล)</strong></div>
+                        <div data-lang="en" class="hidden"><strong>Places Not Included (with Reasons)</strong></div>
+                        <div data-lang="jp" class="hidden"><strong>今回のプランに未収載（理由付き）</strong></div>
                     </div>
                     <div class="meta">
                         <span class="chip" data-lang="th">ปรับสลับจุดได้ตามเวลา</span>
@@ -1213,6 +1261,39 @@
             if (e.target.matches('.inc, #fx, #fuel, #toll, #misc')) recalc();
         });
         window.addEventListener('load', recalc);
+
+        // คำนวณความสูง header แล้วอัดเข้า CSS var --header-height
+        function updateHeaderHeight() {
+            const h = document.querySelector('header')?.offsetHeight || 84;
+            document.documentElement.style.setProperty('--header-height', `${h}px`);
+        }
+
+        // โหลด/ย่อ/หมุนจอ/ฟอนต์พร้อม → อัปเดต
+        window.addEventListener('load', updateHeaderHeight);
+        window.addEventListener('resize', updateHeaderHeight);
+        window.addEventListener('orientationchange', updateHeaderHeight);
+        if (document.fonts && document.fonts.ready) { document.fonts.ready.then(updateHeaderHeight); }
+
+        // ผูกกับปุ่มสลับภาษา (ถ้าคุณมี setLang)
+        const _setLang = window.setLang;
+        window.setLang = function (lang) { _setLang(lang); requestAnimationFrame(updateHeaderHeight); };
+
+        // ผูกกับแผงสรุป (พับ/กาง)
+        const expPanel = document.getElementById('expPanel');
+        expPanel?.addEventListener('toggle', () => {
+            // รอ DOM เปลี่ยนเสร็จแล้ววัดความสูงใหม่
+            requestAnimationFrame(updateHeaderHeight);
+        });
+
+        // มือถือ: ให้เริ่มต้น "พับ" แผงสรุปเพื่อไม่กินที่
+        if (window.matchMedia('(max-width: 768px)').matches && expPanel) {
+            expPanel.open = false;
+            requestAnimationFrame(updateHeaderHeight);
+        }
+
+        // ก่อนพิมพ์/หลังพิมพ์ → กางเพื่อให้ข้อมูลครบ แล้วคำนวณใหม่
+        window.addEventListener('beforeprint', () => { if (expPanel) expPanel.open = true; updateHeaderHeight(); });
+        window.addEventListener('afterprint', updateHeaderHeight);
     </script>
 </body>
 
